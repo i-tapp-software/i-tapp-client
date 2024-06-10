@@ -31,6 +31,8 @@ export function UpdateSpaceForm() {
       city: "",
       address: "",
       description: "",
+      duration: "",
+      bio: "",
     },
   });
 
@@ -171,7 +173,6 @@ export function UpdateSpaceForm() {
                         <FormLabel>Bio</FormLabel>
                         <FormControl>
                           <Textarea
-                            name="bio"
                             className="h-[120px] min-h-[120px]"
                             placeholder="Describe this internship oppurtunity"
                             {...field}

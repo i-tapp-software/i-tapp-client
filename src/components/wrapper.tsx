@@ -7,7 +7,7 @@ export function Wrapper({
   className = "",
 }: {
   children: React.ReactNode;
-  className: ClassValue;
+  className?: ClassValue;
 }) {
   return (
     <section
