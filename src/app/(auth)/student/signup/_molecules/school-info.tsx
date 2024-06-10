@@ -19,7 +19,7 @@ export function SchoolInfo() {
           <Label className="font-regular">Name of school*</Label>
           <Select>
             <SelectTrigger>
-              <SelectValue value="Select school" />
+              <SelectValue>Select school</SelectValue>
             </SelectTrigger>
             <SelectContent>
               {db.schools.map((school) => (
