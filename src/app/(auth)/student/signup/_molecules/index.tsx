@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SchoolInfo } from "./school-info";
 import { StudentInfo } from "./student-info";
-import { SignupInfo } from "./signup-info.jsx";
+import { SignupInfo } from "./signup-info";
 import { FormIndicator } from "@/components/ui/form-indicator";
 
 export function StudentOnboardingForm() {
