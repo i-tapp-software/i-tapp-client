@@ -1,9 +1,9 @@
-export default function Layout({
+import { CompanyLayoutUi } from "@/components/layouts/protected/company";
+
+export default function PortalLayout({
   company,
-  student,
 }: {
   company: React.ReactNode;
-  student: React.ReactNode;
 }) {
-  return company;
+  return <CompanyLayoutUi>{company}</CompanyLayoutUi>;
 }

@@ -1,6 +1,6 @@
 import { StudentOnboardingForm } from "./_molecules";
 
-export default function Student() {
+export default function StudentSignupPage() {
   return (
     <>
       <StudentOnboardingForm />

@@ -1,4 +1,4 @@
-import SiteLayoutUi from "@/components/layouts/site";
+import { SiteLayoutUi } from "@/components/layouts/site";
 
 export default function SiteLayout({
   children,

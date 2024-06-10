@@ -1,5 +1,5 @@
 import { CompanyOnboardingForm } from "./_molecules";
 
-export default function CompanySignup() {
+export default function CompanySignupPage() {
   return <CompanyOnboardingForm />;
 }

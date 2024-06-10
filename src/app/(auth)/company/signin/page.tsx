@@ -1,5 +1,5 @@
 import { CompanySignIn } from "./_molecules";
 
-export default function page() {
+export default function SigninPage() {
   return <CompanySignIn />;
 }

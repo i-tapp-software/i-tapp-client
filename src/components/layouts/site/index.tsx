@@ -1,11 +1,7 @@
 import { Footer } from "./_molecules/footer";
 import { Header } from "./_molecules/header";
 
-export default function SiteLayoutUi({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function SiteLayoutUi({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Header />
