@@ -26,8 +26,8 @@ export function CompanySignIn() {
     <div className="w-full max-w-[350px] m-auto flex flex-col">
       <div className="flex flex-col gap-4 items-center mb-4">
         <h1 className="text-2xl font-bold ">Login to your account</h1>
-        <p className="text-sm">
-          Welcome back. Dont have an account yet?
+        <p className="text-sm text-center">
+          Welcome back. <br /> Dont have an account yet?
           <Link href="/company/signup" className="text-primary mx-1">
             Sign up
           </Link>
@@ -60,7 +60,7 @@ export function CompanySignIn() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input isHiddenField {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

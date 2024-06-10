@@ -77,7 +77,7 @@ export function CompanyInfo1() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input {...field} />
+                  <Input isHiddenField {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

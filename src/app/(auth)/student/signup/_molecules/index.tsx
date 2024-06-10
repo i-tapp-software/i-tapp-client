@@ -32,19 +32,21 @@ export function StudentOnboardingForm() {
     <form className="w-full flex flex-col gap-10 max-w-[350px] m-auto">
       <div className="flex flex-col gap-4 items-center">
         <h1 className="text-2xl font-bold">Sign up as a student</h1>
-        <p className="text-sm">
-          Already have an account?{" "}
-          <Link href="/signin" className="text-primary">
-            Log in
-          </Link>
-        </p>
-        <span className="font-bold">OR</span>
-        <p className="text-sm">
-          Signing up as a company?{" "}
-          <Link href="/company/signup" className="text-primary">
-            Click here
-          </Link>
-        </p>
+        <div className="flex flex-col gap-2 items-center">
+          <p className="text-sm">
+            Already have an account?{" "}
+            <Link href="/signin" className="text-primary">
+              Log in
+            </Link>
+          </p>
+          <span className="font-bold">OR</span>
+          <p className="text-sm">
+            Signing up as a company?{" "}
+            <Link href="/company/signup" className="text-primary">
+              Click here
+            </Link>
+          </p>
+        </div>
       </div>
 
       {/* Indicator */}
