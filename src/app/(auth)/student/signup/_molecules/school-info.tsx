@@ -1,3 +1,6 @@
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import {
   Select,
   SelectContent,
@@ -8,33 +11,107 @@ import {
 import { FormField } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { InputDescription } from "@/components/ui/input-description";
 
 import db from "../../../../../../db.json";
+import { onboardStudentSchema } from "@/lib/validations/auth";
+import { useAction } from "next-safe-action/hooks";
+import { onboardStudent } from "@/api/actions/auth";
+import { Dispatch, SetStateAction } from "react";
+import { ButtonWithLoader } from "@/components/button-with-loader";
 
-export function SchoolInfo() {
+export function SchoolInfo({
+  setForm,
+}: {
+  setForm: Dispatch<SetStateAction<number>>;
+}) {
+  const {
+    register,
+    getValues,
+    formState: { isDirty, isValid, errors },
+    ...form
+  } = useForm({
+    mode: "all",
+    resolver: zodResolver(onboardStudentSchema),
+    defaultValues: {
+      school: "",
+      matNo: "",
+    },
+  });
+
+  const { execute, hasErrored, result, isExecuting } = useAction(
+    onboardStudent,
+    {
+      onSuccess: () => {
+        setForm((form) => form++);
+      },
+    }
+  );
+
   return (
-    <div className="w-full flex flex-col gap-6">
+    <form
+      className="w-full flex flex-col gap-6"
+      onSubmit={(e) => {
+        e.preventDefault();
+
+        execute(getValues());
+      }}
+    >
+      {hasErrored && (
+        <span className="text-danger font-semi-bold ">
+          {result.serverError?.message}
+        </span>
+      )}
       <div className="flex flex-col gap-5">
         <FormField>
           <Label className="font-regular">Name of school*</Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue>Select school</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {db.schools.map((school) => (
-                <SelectItem key={school.name} value={school.name}>
-                  {school.full_name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Controller
+            name="school"
+            control={form.control}
+            render={({ field, fieldState: { error } }) => (
+              <>
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select School" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {db.schools.map((school) => (
+                      <SelectItem key={school.name} value={school.name}>
+                        {school.full_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <InputDescription
+                  variant={error && "error"}
+                  text={error?.message}
+                />
+              </>
+            )}
+          />
         </FormField>
         <FormField>
           <Label className="font-regular">Matriculation Number*</Label>
-          <Input />
+          <Input
+            type="text"
+            variant={errors.matNo && "error"}
+            {...register("matNo")}
+          />
+          <InputDescription
+            variant={errors.matNo && "error"}
+            text={errors.matNo?.message}
+          />
         </FormField>
+        <div className="m-auto">
+          <ButtonWithLoader
+            isPending={isExecuting}
+            disabled={!isValid || !isDirty || isExecuting}
+          >
+            Continue...
+          </ButtonWithLoader>
+        </div>
       </div>
-    </div>
+    </form>
   );
 }

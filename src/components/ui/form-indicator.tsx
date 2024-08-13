@@ -16,7 +16,11 @@ export function FormIndicator({
         <>
           <div
             key={index}
-            onClick={() => setStep(index)}
+            // onClick={() => {
+            //   if(step > index){
+
+            //   }
+            // }}
             className={cn(
               "rounded-full min-h-5 min-w-5 bg-white border-2 border-grey-4 cursor-pointer",
               index == step && "border-black"

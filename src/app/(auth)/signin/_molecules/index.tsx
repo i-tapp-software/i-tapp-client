@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
 
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -13,14 +14,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { signinSchema } from "@/lib/validations/auth";
+import { ButtonWithLoader } from "@/components/button-with-loader";
+import { signin } from "@/api/actions/auth";
 
 export function CompanySignIn() {
   const form = useForm({
+    resolver: zodResolver(signinSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
+
+  const { isDirty, isValid } = form.formState;
+
+  const { execute, isExecuting, result, hasErrored } = useAction(signin);
 
   return (
     <div className="w-full max-w-[350px] m-auto flex flex-col">
@@ -34,8 +43,20 @@ export function CompanySignIn() {
         </p>
       </div>
 
+      {hasErrored && (
+        <span className="text-danger font-semi-bold ">
+          {result.serverError?.message}
+        </span>
+      )}
       <Form {...form}>
-        <form className="my-4 flex flex-col gap-2">
+        <form
+          className="my-4 flex flex-col gap-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            execute(form.getValues());
+          }}
+        >
           <div className="flex flex-col gap-3">
             <FormField
               control={form.control}
@@ -70,7 +91,13 @@ export function CompanySignIn() {
           </div>
 
           <div className="m-auto my-2">
-            <Button type="submit">Sign up</Button>
+            <ButtonWithLoader
+              type="submit"
+              disabled={!isDirty || !isValid}
+              isPending={isExecuting}
+            >
+              Sign up
+            </ButtonWithLoader>
           </div>
         </form>
       </Form>

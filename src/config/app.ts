@@ -1,4 +1,4 @@
-const { env } = require("@/lib/env");
+const { env } = require("@/lib/utils");
 
 export const app = {
   name: env("app_name", "ITAPP"),
