@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { SchoolInfo } from "./school-info";
 import { SignupInfo } from "./signup-info";
 import { FormIndicator } from "@/components/ui/form-indicator";
+import { StudentInfo } from "./student-info";
 
 export function StudentOnboardingForm() {
   const [form, setForm] = useState<number>(0);
@@ -15,13 +16,13 @@ export function StudentOnboardingForm() {
 
   switch (form) {
     case 0:
-      currentForm = <SchoolInfo setForm={setForm} />;
+      currentForm = <SchoolInfo setForm={setForm} formIndex={form} />;
       break;
-    // case 1:
-    //   currentForm = <StudentInfo />;
-    //   break;
     case 1:
-      currentForm = <SignupInfo />;
+      currentForm = <SignupInfo setForm={setForm} formIndex={form} />;
+      break;
+    case 2:
+      currentForm = <StudentInfo />;
       break;
     default:
       break;
@@ -50,7 +51,7 @@ export function StudentOnboardingForm() {
 
       {/* Indicator */}
 
-      <FormIndicator steps={2} setStep={setForm} step={form} />
+      <FormIndicator steps={3} setStep={setForm} step={form} />
 
       <fieldset>{currentForm} </fieldset>
     </div>

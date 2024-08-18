@@ -15,15 +15,17 @@ import { Button } from "@/components/ui/button";
 import { InputDescription } from "@/components/ui/input-description";
 
 import db from "../../../../../../db.json";
-import { onboardStudentSchema } from "@/lib/validations/auth";
+import { verifyStudentIdentitySchema } from "@/lib/validations/auth";
 import { useAction } from "next-safe-action/hooks";
-import { onboardStudent } from "@/api/actions/auth";
+import { verifyStudentIdentity } from "@/api/actions/auth";
 import { Dispatch, SetStateAction } from "react";
 import { ButtonWithLoader } from "@/components/button-with-loader";
 
 export function SchoolInfo({
+  formIndex,
   setForm,
 }: {
+  formIndex: number;
   setForm: Dispatch<SetStateAction<number>>;
 }) {
   const {
@@ -33,7 +35,7 @@ export function SchoolInfo({
     ...form
   } = useForm({
     mode: "all",
-    resolver: zodResolver(onboardStudentSchema),
+    resolver: zodResolver(verifyStudentIdentitySchema),
     defaultValues: {
       school: "",
       matNo: "",
@@ -41,10 +43,10 @@ export function SchoolInfo({
   });
 
   const { execute, hasErrored, result, isExecuting } = useAction(
-    onboardStudent,
+    verifyStudentIdentity,
     {
       onSuccess: () => {
-        setForm((form) => form++);
+        setForm(++formIndex);
       },
     }
   );

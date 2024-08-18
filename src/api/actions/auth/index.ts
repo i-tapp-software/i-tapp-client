@@ -1,11 +1,15 @@
 "use server";
 
 import { actionClient } from "@/services/action";
-import { onboardStudentSchema, signinSchema } from '@/lib/validations/auth';
-import { mutate } from '@/services/query';
+import {
+  verifyStudentIdentitySchema,
+  signinSchema,
+  studentSignupSchema,
+} from "@/lib/validations/auth";
+import { mutate } from "@/services/query";
 
 export const signin = actionClient
-  .metadata({ actionName: 'signin' })
+  .metadata({ actionName: "signin" })
   .schema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
     return await mutate("/auth/login", {
@@ -14,10 +18,16 @@ export const signin = actionClient
     });
   });
 
+export const verifyStudentIdentity = actionClient
+  .metadata({ actionName: "verifyStudentIdentity" })
+  .schema(verifyStudentIdentitySchema)
+  .action(async ({ parsedInput: { matNo, school } }) => {
+    return true;
+  });
 
-export const onboardStudent = actionClient
-  .metadata({ actionName: 'onboardStudent' })
-  .schema(onboardStudentSchema)
-  .action(async ({ parsedInput: { matNo, school }, }) => {
-    return await mutate("/student/onboard", { matNo, school });
+export const studentSignup = actionClient
+  .metadata({ actionName: "studentSignup" })
+  .schema(studentSignupSchema)
+  .action(async ({ parsedInput: { email, password } }) => {
+    await mutate("/auth/signup", { email, password });
   });

@@ -1,5 +1,6 @@
+import React, { type Dispatch, type SetStateAction } from "react";
+
 import { cn } from "@/lib/utils/tw";
-import { type Dispatch, type SetStateAction } from "react";
 
 export function FormIndicator({
   steps = 3,
@@ -13,14 +14,9 @@ export function FormIndicator({
   return (
     <div className="w-full flex items-center justify-between px-2">
       {Array.from({ length: steps }).map((_, index) => (
-        <>
+        <React.Fragment key={index}>
           <div
             key={index}
-            // onClick={() => {
-            //   if(step > index){
-
-            //   }
-            // }}
             className={cn(
               "rounded-full min-h-5 min-w-5 bg-white border-2 border-grey-4 cursor-pointer",
               index == step && "border-black"
@@ -34,7 +30,7 @@ export function FormIndicator({
               )}
             ></div>
           )}
-        </>
+        </React.Fragment>
       ))}
     </div>
   );

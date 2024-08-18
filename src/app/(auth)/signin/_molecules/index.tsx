@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
@@ -19,7 +20,7 @@ import { ButtonWithLoader } from "@/components/button-with-loader";
 import { signin } from "@/api/actions/auth";
 
 export function CompanySignIn() {
-  const form = useForm({
+  const form = useForm<z.infer<typeof signinSchema>>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
       email: "",
@@ -27,9 +28,13 @@ export function CompanySignIn() {
     },
   });
 
-  const { isDirty, isValid } = form.formState;
+  const { isDirty, isValid, errors } = form.formState;
 
-  const { execute, isExecuting, result, hasErrored } = useAction(signin);
+  const { execute, isExecuting, result, hasErrored } = useAction(signin, {
+    onSuccess() {
+      alert("Sign in successful!");
+    },
+  });
 
   return (
     <div className="w-full max-w-[350px] m-auto flex flex-col">
@@ -66,7 +71,7 @@ export function CompanySignIn() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                      <Input variant={errors.email && "error"} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -81,7 +86,11 @@ export function CompanySignIn() {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input isHiddenField {...field} />
+                      <Input
+                        variant={errors.password && "error"}
+                        isHiddenField
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
