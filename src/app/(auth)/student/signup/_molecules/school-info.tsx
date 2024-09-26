@@ -24,9 +24,11 @@ import { ButtonWithLoader } from "@/components/button-with-loader";
 export function SchoolInfo({
   formIndex,
   setForm,
+  setStudentData,
 }: {
   formIndex: number;
   setForm: Dispatch<SetStateAction<number>>;
+  setStudentData: Dispatch<SetStateAction<any>>;
 }) {
   const {
     register,
@@ -45,7 +47,9 @@ export function SchoolInfo({
   const { execute, hasErrored, result, isExecuting } = useAction(
     verifyStudentIdentity,
     {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        // alert("Student identity verified!");
+        setStudentData(data);
         setForm(++formIndex);
       },
     }

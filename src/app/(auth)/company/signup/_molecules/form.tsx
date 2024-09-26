@@ -1,22 +1,31 @@
 "use client";
 
-import { useState } from "react";
-
+import React, { useState } from "react";
 import { CompanyInfo1 } from "./company-info-1";
 import { CompanyInfo2 } from "./company-info-2";
 import { FormIndicator } from "@/components/ui/form-indicator";
 
 export function SignupForm() {
-  const [form, setForm] = useState<number>(0);
+  const [formStep, setFormStep] = useState<number>(0);
+  const [formData, setFormData] = useState<any>({});
+
+  const handleFormDataUpdate = (data: any) => {
+    setFormData((prevData) => ({ ...prevData, ...data }));
+  };
 
   let currentForm: React.ReactNode;
 
-  switch (form) {
+  switch (formStep) {
     case 0:
-      currentForm = <CompanyInfo1 />;
+      currentForm = (
+        <CompanyInfo1
+          setFormStep={setFormStep}
+          onFormDataUpdate={handleFormDataUpdate}
+        />
+      );
       break;
     case 1:
-      currentForm = <CompanyInfo2 />;
+      currentForm = <CompanyInfo2 formData={formData} />;
       break;
     default:
       break;
@@ -24,7 +33,7 @@ export function SignupForm() {
 
   return (
     <div>
-      <FormIndicator steps={2} setStep={setForm} step={form} />
+      <FormIndicator steps={2} setStep={setFormStep} step={formStep} />
       <div className="my-4 flex flex-col gap-2">{currentForm}</div>
     </div>
   );

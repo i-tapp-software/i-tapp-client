@@ -5,6 +5,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
+import { useRouter } from "next/navigation"
 
 import { Input } from "@/components/ui/input";
 import {
@@ -18,8 +19,11 @@ import {
 import { signinSchema } from "@/lib/validations/auth";
 import { ButtonWithLoader } from "@/components/button-with-loader";
 import { signin } from "@/api/actions/auth";
+import { saveToken } from "@/lib/auth";
+
 
 export function CompanySignIn() {
+  const router = useRouter()
   const form = useForm<z.infer<typeof signinSchema>>({
     resolver: zodResolver(signinSchema),
     defaultValues: {
@@ -30,11 +34,27 @@ export function CompanySignIn() {
 
   const { isDirty, isValid, errors } = form.formState;
 
+  // const { execute, isExecuting, result, hasErrored } = useAction(signin, {
+  //   onSuccess(data) {
+  //     console.log("Logged in successfully");
+  //     saveToken(data?.data?.data?.accessToken);
+  //     console.log(data?.data?.data?.accessToken);
+
+  //   },
+  // });
+
+
   const { execute, isExecuting, result, hasErrored } = useAction(signin, {
-    onSuccess() {
-      alert("Sign in successful!");
+    onSuccess(data) {
+
+      console.log("Logged in successfully");
+      console.log(data)
+
+
     },
   });
+
+
 
   return (
     <div className="w-full max-w-[350px] m-auto flex flex-col">

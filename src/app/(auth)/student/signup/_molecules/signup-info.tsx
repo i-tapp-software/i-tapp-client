@@ -20,9 +20,11 @@ import { Dispatch, SetStateAction } from "react";
 export function SignupInfo({
   formIndex,
   setForm,
+  studentData,
 }: {
   formIndex: number;
   setForm: Dispatch<SetStateAction<number>>;
+  studentData: any;
 }) {
   const form = useForm<z.infer<typeof studentSignupSchema>>({
     mode: "all",
@@ -41,7 +43,7 @@ export function SignupInfo({
     {
       onSuccess() {
         setForm(++formIndex);
-        alert("Sign up successful!");
+        // alert("Sign up successful!");
       },
     }
   );

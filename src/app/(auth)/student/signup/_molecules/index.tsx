@@ -11,18 +11,31 @@ import { StudentInfo } from "./student-info";
 
 export function StudentOnboardingForm() {
   const [form, setForm] = useState<number>(0);
+  const [studentData, setStudentData] = useState<any>();
 
   let currentForm: React.ReactNode;
 
   switch (form) {
     case 0:
-      currentForm = <SchoolInfo setForm={setForm} formIndex={form} />;
+      currentForm = (
+        <SchoolInfo
+          setForm={setForm}
+          formIndex={form}
+          setStudentData={setStudentData}
+        />
+      );
       break;
     case 1:
-      currentForm = <SignupInfo setForm={setForm} formIndex={form} />;
+      currentForm = (
+        <SignupInfo
+          setForm={setForm}
+          formIndex={form}
+          studentData={studentData}
+        />
+      );
       break;
     case 2:
-      currentForm = <StudentInfo />;
+      currentForm = <StudentInfo studentData={studentData} />;
       break;
     default:
       break;

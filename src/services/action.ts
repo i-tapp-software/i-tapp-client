@@ -11,27 +11,26 @@ export const actionClient = createSafeActionClient({
     });
   },
   handleReturnedServerError(e): FetchResponse {
-    if (axios.isAxiosError(e)) {
-      const err = e as AxiosError;
+  if (axios.isAxiosError(e)) {
+    const err = e as AxiosError;
 
-      if (Object.keys(err.response?.data ?? {}).length > 0) {
-        const customError = err.response?.data as FetchResponse;
-
-        return {
-          statusCode: e.status!,
-          message: customError.message ?? customError.error,
-        };
-      }
-
+    if (err.response && err.response.data) {
+      const customError = err.response.data as FetchResponse;
       return {
-        statusCode: e.status!,
-        message: e.message,
+        statusCode: err.response.status,
+        message: customError.message ?? customError.error,
       };
     }
 
     return {
-      statusCode: 500,
-      message: "An error occured, please try again later!",
+      statusCode: err.response?.status || 500,
+      message: err.message,
     };
-  },
+  }
+
+  return {
+    statusCode: 500,
+    message: "An error occurred, please try again later!",
+  };
+}
 });

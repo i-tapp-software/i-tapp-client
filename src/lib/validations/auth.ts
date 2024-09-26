@@ -20,3 +20,21 @@ export const studentSignupSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const verifyCompanySchema = z.object({
+  company_name: z.string().min(1),
+  email: z.string().email(),
+  address: z.string().min(1),
+  password: z.string().min(1),
+});
+
+export const companySignupSchema = z.object({
+  rc_number: z.string().min(1),
+  year_founded: z.string().min(1),
+  student_capacity: z.string().min(1),
+  it_duration: z.string().min(1),
+  companyId: z.string().min(1),
+});
+
+export const fullCompanySignupSchema =
+  verifyCompanySchema.merge(companySignupSchema);

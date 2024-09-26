@@ -6,6 +6,8 @@ import { AppProvider } from "@/components/providers/app-provider";
 import { inter, montserrat } from "@/lib/utils/fonts";
 import { app } from "@/config/app";
 
+import { CompanyProvider } from "@/context/CompanyContext";
+
 export const metadata: Metadata = {
   title: app.title,
   description: app.description,

@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/lib/**/*.ts"
-  ],
+, "src/context/CompanyContext.js", "src/context/index.js", "src/lib/hooks/use-paginator.js"  ],
   "exclude": ["node_modules"]
 }
