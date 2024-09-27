@@ -18,15 +18,19 @@ import { cn } from "@/lib/utils/tw";
 
 export const navLinks: { text: string; href: string }[] = [
   {
-    text: "Overview",
-    href: "/portal/overview/dashboard",
+    text: "Find IT space",
+    href: "/portal/find-it-space",
   },
   {
-    text: "IT Space",
-    href: "/portal/it-space/add-new-space",
+    text: "My IT Space",
+    href: "/portal/my-it-space",
   },
   {
-    text: "Candidates",
+    text: "My Applications",
+    href: "/portal/my-application",
+  },
+  {
+    text: "Saved Applications",
     href: "/portal/candidates",
   },
 ];

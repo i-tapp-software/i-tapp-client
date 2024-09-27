@@ -19,6 +19,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
 import { apply } from "@/api/actions/auth";
+import { ButtonWithLoader } from "@/components/button-with-loader";
 
 const formSchema = z.object({
   firstname: z.string().min(3),
@@ -28,7 +29,7 @@ const formSchema = z.object({
   phoneNumber: z.string({ required_error: "Required" }),
 });
 
-export default function ApplicationForm({ companyId }) {
+export default function ApplicationForm({ id }) {
   const [success, setSuccess] = useState(false);
   const router = useRouter();
 
@@ -43,16 +44,24 @@ export default function ApplicationForm({ companyId }) {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    if (data) {
-      setSuccess(true);
+    try {
+      const response = await apply(id, data);
+      console.log(response);
+    } catch (error) {
+      console.error("Error submitting application:", error);
+      // Handle error
     }
   };
 
   const { execute, isExecuting, result, hasErrored } = useAction(apply, {
     onSuccess(data) {
-      console.log(data);
+      console.log("Application submitted successfully");
+      console.log("Received data:", data);
+    },
+    onError(error) {
+      console.error("Error submitting application:", error);
     },
   });
 
@@ -87,12 +96,7 @@ export default function ApplicationForm({ companyId }) {
       )}
       <Form {...form}>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-
-            const formData = { ...form.getValues(), id: companyId };
-            execute(formData); // Send the combined data with companyId
-          }}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-4 mt-4"
         >
           <FormField

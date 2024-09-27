@@ -26,10 +26,8 @@ export default function FindITSpace({ searchParams }) {
         const response = await fetchJobs(); // Await the promise resolution
         const companyData = response?.data?.flat() || []; // Flatten the array if it's nested
         setCompanyList(companyData); // Set the flattened data
-        console.log(companyData[0]); // Log the resolved data
       } catch (error) {
         console.error("Error fetching jobs:", error);
-        console.log(companyList);
       }
     };
 

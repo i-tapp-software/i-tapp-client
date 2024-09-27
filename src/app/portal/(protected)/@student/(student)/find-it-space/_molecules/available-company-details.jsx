@@ -4,6 +4,8 @@ import share from "@/assets/icons/share.svg";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight2 } from "iconsax-react";
+import { useAction } from "next-safe-action/hooks";
+import { apply } from "@/api/actions/auth";
 
 export default function AvailableCompanyDetails({
   details,
@@ -11,22 +13,46 @@ export default function AvailableCompanyDetails({
   setShowModal,
 }) {
   const {
-    id,
+    id, // Extracted id from details
     companyLogo,
-     name,
+    name,
     description,
     duration,
     industry,
     createdDate,
     totalApplicants,
     location,
-     address,
+    address,
   } = details;
 
+  // Get the apply action hook
+  const {
+    execute: applyAction,
+    isExecuting,
+    hasErrored,
+  } = useAction(apply, {
+    onSuccess(data) {
+      console.log("Application successful!", data);
+      alert("Application submitted successfully!");
+    },
+    onError(error) {
+      console.error("Application failed", error);
+    },
+  });
+
+  const handleApply = () => {
+    // Call the apply action with the company ID
+
+    const applicationData = {
+      id: id,
+    };
+    applyAction({ applicationData });
+  };
+
   return (
-    <div className=" w-full rounded-xl md:flex p-8 bg-white  flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full  ">
-      <div className=" flex justify-between border-b">
-        <div className="flex flex-col gap-4 pb-6 w-full ">
+    <div className="w-full rounded-xl md:flex p-8 bg-white flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full">
+      <div className="flex justify-between border-b">
+        <div className="flex flex-col gap-4 pb-6 w-full">
           <div className="flex justify-between gap-2">
             <Image
               src={companyLogo}
@@ -60,17 +86,17 @@ export default function AvailableCompanyDetails({
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-x-10 gap-y-6 py-8 ">
+      <div className="flex flex-wrap gap-x-10 gap-y-6 py-8">
         <div>
-          <h6 className=" text-h6">Duration</h6>
+          <h6 className="text-h6">Duration</h6>
           <p className="text-[#6E6E9B]">{duration} Months</p>
         </div>
         <div>
-          <h6 className=" text-h6">Industry</h6>
+          <h6 className="text-h6">Industry</h6>
           <p className="text-[#6E6E9B]">{industry}</p>
         </div>
         <div>
-          <h6 className=" text-h6">Date Posted</h6>
+          <h6 className="text-h6">Date Posted</h6>
           <p className="text-[#6E6E9B]">{createdDate}</p>
         </div>
       </div>
@@ -79,9 +105,18 @@ export default function AvailableCompanyDetails({
         <h6 className="text-h6">Description</h6>
         <p className="text-[#6E6E9B] py-6 border-b">{description}</p>
       </div>
-      <Button size="sm" className="w-full" onClick={() => setShowModal(true)}>
-        Apply Now
+
+      <Button
+        size="sm"
+        className="w-full"
+        onClick={handleApply}
+        disabled={isExecuting}
+      >
+        {isExecuting ? "Applying..." : "Apply Now"}
       </Button>
+      {hasErrored && (
+        <p className="text-red-500">Application failed. Please try again.</p>
+      )}
     </div>
   );
 }
