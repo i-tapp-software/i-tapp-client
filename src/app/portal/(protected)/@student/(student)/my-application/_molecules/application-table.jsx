@@ -24,7 +24,7 @@ export default function ApplicationTable({ query, applications }) {
               <TableHead>Company</TableHead>
               <TableHead>Applied on</TableHead>
               <TableHead>Location</TableHead>
-              <TableHead>Role</TableHead>
+              <TableHead>Industry</TableHead>
               <TableHead>No of Applicants</TableHead>
               <TableHead>Status</TableHead>
             </TableRow>
