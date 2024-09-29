@@ -14,19 +14,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { verifyCompanySchema } from "@/lib/validations/auth";
+import { z } from "zod";
+
+type FormData = z.infer<typeof verifyCompanySchema>;
+
+interface CompanyInfo1Props {
+  setFormStep: React.Dispatch<React.SetStateAction<number>>;
+  onFormDataUpdate: (data: FormData) => void;
+}
 
 export function CompanyInfo1({
   setFormStep,
   onFormDataUpdate,
-}: {
-  setFormStep: React.Dispatch<React.SetStateAction<number>>;
-  onFormDataUpdate: (data: any) => void;
-}) {
-  const {
-    handleSubmit,
-    formState: { isValid, errors },
-    ...form
-  } = useForm({
+}: CompanyInfo1Props) {
+  const form = useForm<FormData>({
     mode: "onChange",
     resolver: zodResolver(verifyCompanySchema),
     defaultValues: {
@@ -37,17 +38,19 @@ export function CompanyInfo1({
     },
   });
 
-  const onSubmit = (data: any) => {
-    if (isValid) {
-      onFormDataUpdate(data); // Pass form data to parent
-      setFormStep(1); // Navigate to the next form
-    }
+  const onSubmit = (data: FormData) => {
+    onFormDataUpdate(data); // Pass form data to parent
+    setFormStep(1); // Navigate to the next form
   };
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-3" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex flex-col gap-3"
+      >
         <FormField
+          control={form.control}
           name="company_name"
           render={({ field }) => (
             <FormItem>
@@ -55,23 +58,25 @@ export function CompanyInfo1({
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage>{errors.company_name?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
+          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} />
+                <Input {...field} type="email" />
               </FormControl>
-              <FormMessage>{errors.email?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
+          control={form.control}
           name="address"
           render={({ field }) => (
             <FormItem>
@@ -79,24 +84,25 @@ export function CompanyInfo1({
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage>{errors.address?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
+          control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type="password" {...field} />
+                <Input {...field} type="password" />
               </FormControl>
-              <FormMessage>{errors.password?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />
         <div className="m-auto my-2">
-          <Button type="submit" disabled={!isValid}>
+          <Button type="submit" disabled={!form.formState.isValid}>
             Continue...
           </Button>
         </div>
