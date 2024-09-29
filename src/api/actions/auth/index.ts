@@ -96,11 +96,11 @@ export const studentSignup = actionClient
     await mutate("/auth/signup", { email, password });
   });
 
-export const companySignup = actionClient
-  .metadata({ actionName: "companySignup" })
-  .action(async ({ parsedInput: { email, password } }) => {
-    await mutate("/company/create", { email, password });
-  });
+// export const companySignup = actionClient
+//   .metadata({ actionName: "companySignup" })
+//   .action(async ({ parsedInput: { email, password } }) => {
+//     await mutate("/company/create", { email, password });
+//   });
 
 export const fetchJobs = actionClient
   .metadata({

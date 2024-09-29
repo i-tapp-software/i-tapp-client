@@ -1,6 +1,6 @@
 import { Wrapper } from "@/components/wrapper";
 
-export function Notification() {
+export default function Notification() {
   return (
     <Wrapper className="flex flex-col gap-10">
       <h6 className=" text-h5">Notifications</h6>
