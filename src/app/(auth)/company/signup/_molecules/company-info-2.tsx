@@ -1,10 +1,172 @@
 "use client";
 
+// import React from "react";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { Input } from "@/components/ui/input";
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from "@/components/ui/form";
+// import { companySignupSchema } from "@/lib/validations/auth";
+// import { ButtonWithLoader } from "@/components/button-with-loader";
+// import { useAction } from "next-safe-action/hooks";
+// import { studentSignup } from "@/api/actions/auth";
+// import { z } from "zod";
+
+// type FormData = z.infer<typeof companySignupSchema>;
+
+// interface CompanyInfo2Props {
+//   formData: any; // Consider typing this more specifically
+// }
+
+// export function CompanyInfo2({ formData }: CompanyInfo2Props) {
+//   const form = useForm<FormData>({
+//     mode: "onChange",
+//     resolver: zodResolver(companySignupSchema),
+//     defaultValues: {
+//       rc_number: "",
+//       year_founded: "",
+//       student_capacity: "",
+//       it_duration: "",
+//     },
+//   });
+
+//   const { execute, hasErrored, result, isExecuting } = useAction(studentSignup);
+
+//   const onSubmit = form.handleSubmit((data) => {
+//     const password = data.rc_number;
+//     execute(password);
+//   });
+
+//   return (
+//     <Form {...form}>
+//       <form className="flex flex-col gap-3" onSubmit={onSubmit}>
+//         {hasErrored && (
+//           <span className="text-danger font-semi-bold">
+//             {result.serverError?.message}
+//           </span>
+//         )}
+//         <FormField
+//           control={form.control}
+//           name="rc_number"
+//           render={({ field }) => (
+//             <FormItem>
+//               <FormLabel>RC number</FormLabel>
+//               <FormControl>
+//                 <Input {...field} />
+//               </FormControl>
+//               <FormMessage />
+//             </FormItem>
+//           )}
+//         />
+//         <FormField
+//           control={form.control}
+//           name="year_founded"
+//           render={({ field }) => (
+//             <FormItem>
+//               <FormLabel>Year founded</FormLabel>
+//               <FormControl>
+//                 <Input {...field} />
+//               </FormControl>
+//               <FormMessage />
+//             </FormItem>
+//           )}
+//         />
+//         <FormField
+//           control={form.control}
+//           name="student_capacity"
+//           render={({ field }) => (
+//             <FormItem>
+//               <FormLabel>Student capacity</FormLabel>
+//               <FormControl>
+//                 <Input {...field} />
+//               </FormControl>
+//               <FormMessage />
+//             </FormItem>
+//           )}
+//         />
+//         <FormField
+//           control={form.control}
+//           name="it_duration"
+//           render={({ field }) => (
+//             <FormItem>
+//               <FormLabel>IT duration</FormLabel>
+//               <FormControl>
+//                 <Input {...field} />
+//               </FormControl>
+//               <FormMessage />
+//             </FormItem>
+//           )}
+//         />
+//         <div className="m-auto my-2">
+//           <ButtonWithLoader type="submit" isPending={isExecuting}>
+//             Sign up
+//           </ButtonWithLoader>
+//         </div>
+//       </form>
+//     </Form>
+//   );
+// }
+
+// import React from "react";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { Input } from "@/components/ui/input";
+// import {
+//   Form,
+//   FormControl,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormMessage,
+// } from "@/components/ui/form";
+// import { companySignupSchema } from "@/lib/validations/auth";
+// import { ButtonWithLoader } from "@/components/button-with-loader";
+// import { useAction } from "next-safe-action/hooks";
+// import { studentSignup } from "@/api/actions/auth";
+// import { z } from "zod";
+
+// type FormData = z.infer<typeof companySignupSchema>;
+
+// interface CompanyInfo2Props {
+//   formData: {
+//     email: string;
+//     // Add other fields from the previous step if necessary
+//   };
+// }
+
+// export function CompanyInfo2({ formData }: CompanyInfo2Props) {
+//   const form = useForm<FormData>({
+//     mode: "onChange",
+//     resolver: zodResolver(companySignupSchema),
+//     defaultValues: {
+//       rc_number: "",
+//       year_founded: "",
+//       student_capacity: "",
+//       it_duration: "",
+//     },
+//   });
+
+//   const { execute, hasErrored, result, isExecuting } = useAction(studentSignup);
+
+//   const onSubmit = form.handleSubmit((data) => {
+//     execute({
+//       email: formData.email,
+//       password: data.rc_number,
+//       confirmPassword: data.rc_number, // Assuming RC number is used as password
+//       // Include other fields if required by the studentSignup action
+//     });
+//   });
+
 import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,15 +178,19 @@ import {
 import { companySignupSchema } from "@/lib/validations/auth";
 import { ButtonWithLoader } from "@/components/button-with-loader";
 import { useAction } from "next-safe-action/hooks";
-import { companySignup, studentSignup } from "@/api/actions/auth";
+import { studentSignup } from "@/api/actions/auth";
+import { z } from "zod";
 
-export function CompanyInfo2({ formData }: { formData: any }) {
-  const {
-    handleSubmit,
-    formState: { isDirty, isValid, errors },
-    getValues,
-    ...form
-  } = useForm({
+type FormData = z.infer<typeof companySignupSchema>;
+
+interface CompanyInfo2Props {
+  formData: {
+    email: string;
+  };
+}
+
+export function CompanyInfo2({ formData }: CompanyInfo2Props) {
+  const form = useForm<FormData>({
     mode: "onChange",
     resolver: zodResolver(companySignupSchema),
     defaultValues: {
@@ -37,23 +203,26 @@ export function CompanyInfo2({ formData }: { formData: any }) {
 
   const { execute, hasErrored, result, isExecuting } = useAction(studentSignup);
 
+  const onSubmit = form.handleSubmit((data) => {
+    execute({
+      email: formData.email,
+      password: data.rc_number,
+      confirmPassword: data.rc_number,
+      // Remove rc_number, year_founded, student_capacity, and it_duration from here
+      // if they're not expected by the studentSignup action
+    });
+  });
+
   return (
     <Form {...form}>
-      <form
-        className="flex flex-col gap-3"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const password = getValues().rc_number;
-          const response = execute(password);
-          console.log(response);
-        }}
-      >
+      <form className="flex flex-col gap-3" onSubmit={onSubmit}>
         {hasErrored && (
           <span className="text-danger font-semi-bold">
             {result.serverError?.message}
           </span>
         )}
         <FormField
+          control={form.control}
           name="rc_number"
           render={({ field }) => (
             <FormItem>
@@ -61,43 +230,46 @@ export function CompanyInfo2({ formData }: { formData: any }) {
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage>{errors.rc_number?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
+          control={form.control}
           name="year_founded"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Year founded</FormLabel>
+              <FormLabel>Year Founded</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage>{errors.year_founded?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
+          control={form.control}
           name="student_capacity"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Student capacity</FormLabel>
+              <FormLabel>Student Capacity</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage>{errors.student_capacity?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />
         <FormField
+          control={form.control}
           name="it_duration"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>IT duration</FormLabel>
+              <FormLabel>IT Duration</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormMessage>{errors.it_duration?.message}</FormMessage>
+              <FormMessage />
             </FormItem>
           )}
         />

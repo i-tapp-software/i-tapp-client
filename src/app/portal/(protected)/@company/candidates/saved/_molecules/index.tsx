@@ -4,6 +4,12 @@ import usePaginator from "@/lib/hooks/use-paginator";
 import { SitePagination } from "@/components/ui/site-pagination";
 import { ApplicantCard } from "@/components/applicant-card";
 
+// Define the type for Applicant
+type Applicant = {
+  name: string;
+  university: string;
+};
+
 export function SavedApplicants() {
   const applicants: {}[] = Array.from({ length: 10 });
 
@@ -13,7 +19,7 @@ export function SavedApplicants() {
   return (
     <div>
       <p className="mb-4">Accepted Applicants</p>
-      {applications.map((applicant, index) => (
+      {applications.map((applicant: Applicant, index: number) => (
         <ApplicantCard
           key={index}
           applicant={{

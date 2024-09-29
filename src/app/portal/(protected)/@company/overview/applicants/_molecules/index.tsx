@@ -7,6 +7,12 @@ import usePaginator from "@/lib/hooks/use-paginator";
 export function Applicants() {
   const applicants: {}[] = Array.from({ length: 20 });
 
+  // Define the type for Applicant
+  type Applicant = {
+    name: string;
+    university: string;
+  };
+
   const { applications, setCurrentPage, postPerPage, currentPage, paginate } =
     usePaginator(6, applicants);
 
@@ -14,7 +20,7 @@ export function Applicants() {
     <div>
       <p className="my-2">All Applicants</p>
       <div>
-        {applications.map((applicant, index) => (
+        {applications.map((applicant: Applicant, index: number) => (
           <ApplicantCard
             key={index}
             applicant={{ name: "Louis", university: "University of Benin" }}
