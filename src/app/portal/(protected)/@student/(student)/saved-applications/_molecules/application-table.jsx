@@ -10,9 +10,9 @@ import {
 import { cn } from "@/lib/utils/tailwind";
 import ApplicationCard from "./application-card";
 
-export default function ApplicationTable({ query, applications }) {
+export default function ApplicationTable({ query,applications }) {
   const myApplication = applications.filter((app) =>
-    app.companyName?.toLocaleLowerCase().startsWith(query.toLocaleLowerCase())
+    app.companyName.toLocaleLowerCase().startsWith(query.toLocaleLowerCase())
   );
 
   return (

@@ -17,7 +17,7 @@ export default function Results({
   const query = searchParams?.query || "";
   const companyFiltered = handleFilter(companyPost, filter);
   const companyList = companyFiltered.filter((company) =>
-    company.name?.toLowerCase().startsWith(query.toLowerCase())
+    company.title?.toLowerCase().startsWith(query.toLowerCase())
   );
 
   const { applications, setCurrentPage, postPerPage, currentPage, paginate } =

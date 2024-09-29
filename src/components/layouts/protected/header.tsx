@@ -31,7 +31,7 @@ export const navLinks: { text: string; href: string }[] = [
   },
   {
     text: "Saved Applications",
-    href: "/portal/candidates",
+    href: "/portal/saved-applications",
   },
 ];
 
@@ -41,7 +41,7 @@ export function Header() {
   const parentRoute = pathname.split("/")[2];
 
   return (
-    <header className="w-full fixed top-0 bg-white border-b z-10 border-grey-5">
+    <header className="w-full fixed px-4 top-0 bg-white border-b z-10 border-grey-5">
       <Wrapper className="flex items-center h-16 justify-between !py-6 md:px-0 touch:px-0">
         <Link href="/portal/overview/dashboard">
           <Logo />
@@ -53,7 +53,7 @@ export function Header() {
               key={index}
               href={link.href}
               className={cn(
-                "border-b-4 border-transparent text-base text-primary pb-3",
+                "border-b-4 border-transparent text-sm text-primary pb-3",
                 link.href.includes(parentRoute) && "border-primary text-black"
               )}
             >
@@ -86,14 +86,14 @@ export function Header() {
                   />
                   You've just been accepted by Chenotech Nigeria Limited
                 </p>
-                <Link href="/notifications">
+                <Link href="/portal/notifications">
                   <p className="px-10 py-2">See all notifications</p>
                 </Link>
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
 
-          <Link href="/profile">
+          <Link href="/portal/profile">
             <Image
               src="/applicant.png"
               alt="applicant"

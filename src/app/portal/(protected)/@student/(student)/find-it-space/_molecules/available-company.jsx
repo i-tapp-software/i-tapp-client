@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 export default function AvailableCompany({ details, setCompanyId }) {
-  const { id, name, companyLogo, address, duration } = details;
+  const { id, title, companyLogo, address, duration } = details;
   return (
     <div
       className="bg-white rounded-xl p-5 basis-[15rem] flex-grow  "
@@ -19,8 +19,8 @@ export default function AvailableCompany({ details, setCompanyId }) {
           className="bg-grey-5 rounded-md self-start"
         />
         <div>
-          <h6 className="text-h6">{name}</h6>
-          <p className="text-primary">{address}</p>
+          <h6 className="text-h6 capitalize">{title}</h6>
+          <p className="text-primary capitalize">{address}</p>
         </div>
       </div>
       <p className=" bg-[#F0F0F5] rounded-[40px] px-3.5 py-1 my-4 inline-block">

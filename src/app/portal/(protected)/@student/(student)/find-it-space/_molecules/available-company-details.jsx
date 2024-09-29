@@ -50,7 +50,7 @@ export default function AvailableCompanyDetails({
   };
 
   return (
-    <div className="w-full rounded-xl md:flex p-8 bg-white flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full">
+    <div className="w-full rounded-xl md:flex p-8 bg-white mx-6 flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full">
       <div className="flex justify-between border-b">
         <div className="flex flex-col gap-4 pb-6 w-full">
           <div className="flex justify-between gap-2">
@@ -93,7 +93,7 @@ export default function AvailableCompanyDetails({
         </div>
         <div>
           <h6 className="text-h6">Industry</h6>
-          <p className="text-[#6E6E9B]">{industry}</p>
+          <p className="text-[#6E6E9B] capitalize">{industry}</p>
         </div>
         <div>
           <h6 className="text-h6">Date Posted</h6>
@@ -101,9 +101,9 @@ export default function AvailableCompanyDetails({
         </div>
       </div>
 
-      <div className="pb-6 mb-6 border-b">
+      <div className=" mb-6 border-t border-b py-4">
         <h6 className="text-h6">Description</h6>
-        <p className="text-[#6E6E9B] py-6 border-b">{description}</p>
+        <p className="text-[#6E6E9B] py-6 ">{description}</p>
       </div>
 
       <Button

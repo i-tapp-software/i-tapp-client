@@ -37,7 +37,7 @@ export default function FindITSpace({ searchParams }) {
   return (
     <Wrapper
       className={cn(
-        " touch:px-10 bg-[#F0F0F5] max-w-full flex flex-col justify-center  md:flex-row md:justify-between mt-4 sm:py-20 sm:pb-10 md:px-10  gap-x-8",
+        " touch:px-5 bg-[#F0F0F5] max-w-full flex flex-col justify-center  md:flex-row md:justify-between mt-4 sm:py-20 sm:pb-10 md:px-10  gap-x-4",
         companyId && "touch:pr-0 md:pr-0"
       )}
     >

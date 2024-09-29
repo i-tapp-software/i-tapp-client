@@ -108,7 +108,22 @@ export const fetchJobs = actionClient
   })
   .action(async () => {
     try {
-      const response = await query("/student/companies");
+      const response = await query("/student/jobs");
+      const data = await response.json(); // Parse the body
+      console.log(data.data); // Log the actual data
+      return data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+export const fetchApplication = actionClient
+  .metadata({
+    actionName: "fetchApplication",
+  })
+  .action(async () => {
+    try {
+      const response = await query("/student/applications");
       const data = await response.json(); // Parse the body
       console.log(data.data); // Log the actual data
       return data.data;
