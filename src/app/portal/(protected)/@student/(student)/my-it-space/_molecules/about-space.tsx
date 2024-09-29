@@ -1,5 +1,7 @@
 import React from "react";
-import somPng from "@assets/images/company.png"; // Use this in production
+import somPng from "@/assets/images/company.png"; // Use this in production
+
+import itappLogo from "@/assets/images/logo.png";
 import Image from "next/image";
 const AboutSpace = () => {
   return (
@@ -8,7 +10,7 @@ const AboutSpace = () => {
         {/* Company Banner */}
         <div>
           <Image
-            src={somPng.src} // Replace with actual image URL
+            src={somPng} // Replace with actual image URL
             alt="Company Banner"
             className="w-full h-72 object-cover"
           />
