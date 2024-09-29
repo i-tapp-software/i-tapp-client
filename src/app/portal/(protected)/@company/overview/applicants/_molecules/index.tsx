@@ -2,7 +2,7 @@
 
 import { ApplicantCard } from "../../../../../../../components/applicant-card";
 import { SitePagination } from "@/components/ui/site-pagination";
-import { usePaginator } from "@/lib/hooks/use-paginator";
+import usePaginator from "@/lib/hooks/use-paginator";
 
 export function Applicants() {
   const applicants: {}[] = Array.from({ length: 20 });
