@@ -1,12 +1,13 @@
 import React from "react";
-import somPng from "/Users/mac/Desktop/i-tapp-client/src/assets/images/company.png";
+import somPng from "@assets/images/company.png"; // Use this in production
+import Image from "next/image";
 const AboutSpace = () => {
   return (
     <>
       <div className="max-w-5xl mx-auto p-6">
         {/* Company Banner */}
         <div>
-          <img
+          <Image
             src={somPng.src} // Replace with actual image URL
             alt="Company Banner"
             className="w-full h-72 object-cover"
