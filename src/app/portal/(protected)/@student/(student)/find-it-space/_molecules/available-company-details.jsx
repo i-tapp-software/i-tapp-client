@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowRight2 } from "iconsax-react";
 import { useAction } from "next-safe-action/hooks";
-import { apply } from "@/api/actions/auth";
+import { apply, save } from "@/api/actions/auth";
 
 export default function AvailableCompanyDetails({
   details,
@@ -49,6 +49,33 @@ export default function AvailableCompanyDetails({
     applyAction({ applicationData });
   };
 
+  const { execute: saveAction } = useAction(save, {
+    onSuccess(data) {
+      console.log("Job saved successfully!", data);
+      // toast({
+      //   title: "Success",
+      //   description: "Job saved successfully!",
+      // });
+      // setIsSaving(false);
+    },
+    onError(error) {
+      console.error("Failed to save job", error);
+      // toast({
+      //   title: "Error",
+      //   description: "Failed to save job. Please try again.",
+      //   variant: "destructive",
+      // });
+      // setIsSaving(false);
+    },
+  });
+
+  const handleSave = () => {
+    const savedData = {
+      companyId: id,
+    };
+    save(savedData);
+  };
+
   return (
     <div className="w-full rounded-xl md:flex p-8 bg-white mx-6 flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full">
       <div className="flex justify-between border-b">
@@ -69,6 +96,7 @@ export default function AvailableCompanyDetails({
               />
               <Image
                 src={archive}
+                onClick={handleSave}
                 alt="archive"
                 className="inline-block cursor-pointer"
               />

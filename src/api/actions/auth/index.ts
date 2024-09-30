@@ -154,3 +154,26 @@ export const apply = actionClient
       throw error; // Ensure the error is propagated back to the frontend
     }
   });
+
+export const save = actionClient
+  .metadata({ actionName: "save" })
+  .action(async ({ parsedInput: id }) => {
+    try {
+      const response = await mutate("/student/saved/applications", id);
+      console.log("Application Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      // if (error.response) {
+      //   // Server responded with a status other than 2xx
+      //   console.error("Server Error:", error.response.data);
+      // } else if (error.request) {
+      //   // No response received
+      //   console.error("No response received:", error.request);
+      // } else {
+      //   // Other errors
+      //   console.error("Error:", error.message);
+      // }
+      throw error; // Ensure the error is propagated back to the frontend
+    }
+  });
