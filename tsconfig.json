@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/lib/**/*.ts"
-, "src/context/CompanyContext.js", "src/context/index.js", "src/lib/hooks/use-paginator.js"  ],
+, "src/context/CompanyContext.js", "src/context/index.js", "src/lib/hooks/use-paginator.js", "src/app/portal/(protected)/@student/(student)/saved-applications/page.jsx", "src/app/portal/(protected)/@student/(student)/profile/molecules/profile-form.tsx", "src/app/portal/(protected)/@student/(student)/profile/molecules/profile-form.tsx"  ],
   "exclude": ["node_modules"]
 }

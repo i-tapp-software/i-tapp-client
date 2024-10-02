@@ -25,11 +25,11 @@ const sideNavLinks: {
       href: "/portal/overview/applicants",
     },
   ],
-  "it-space": [
+  space: [
     {
       icon: <AddCircle />,
       text: "Add new Space",
-      href: "/portal/it-space/add-new-space",
+      href: "/portal/space/add-new-space",
     },
   ],
   candidates: [
@@ -62,7 +62,7 @@ export function Nav() {
       <nav>
         <ul className="flex flex-col gap-3">
           {sideNavLinks[parentRoute]?.map((link, index) => {
-            if (pathname.startsWith("/portal/candidates")) return;
+            // if (pathname.startsWith("/portal/candidates")) return;
 
             return (
               <li

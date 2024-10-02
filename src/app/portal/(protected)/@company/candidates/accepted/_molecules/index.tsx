@@ -53,9 +53,9 @@ export function AcceptedApplicants() {
         <ApplicantCard
           key={index}
           applicant={{
-            name: applicant.name,
-            university: applicant.university,
-            application_status: applicant.application_status,
+            name: "Kennedy",
+            university: "kasu",
+            application_status: "accepted",
           }}
         />
       ))}

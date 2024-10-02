@@ -59,8 +59,8 @@ export function AllApplicants() {
         <ApplicantCard
           key={index}
           applicant={{
-            name: applicant.name,
-            university: applicant.university,
+            name: "kennedy",
+            university: "kasu",
           }}
         />
       ))}

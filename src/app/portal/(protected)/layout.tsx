@@ -1,34 +1,32 @@
 import { CompanyLayoutUi } from "@/components/layouts/protected/company";
-import StudentLayout from "@/components/layouts/protected/student"
+import StudentLayout from "@/components/layouts/protected/student";
+import { headers } from "next/headers";
+
+type UserRole = "company" | "student";
+
+interface PortalLayoutProps {
+  company: React.ReactNode;
+  student: React.ReactNode;
+  userRole: UserRole;
+}
 
 export default function PortalLayout({
   company,
   student,
-}: {
-  company: React.ReactNode;
-  student: React.ReactNode;
-}) {
-  return <StudentLayout>{student}</StudentLayout>;
+  userRole = "company",
+}: PortalLayoutProps) {
+  const headerList = headers();
+
+  // const userRole =
+  //   (headerList.get("x-user-role")?.toLowerCase() as UserRole) || "company";
+
+  return (
+    <>
+      {userRole === "student" ? (
+        <StudentLayout>{student}</StudentLayout>
+      ) : (
+        <CompanyLayoutUi>{company}</CompanyLayoutUi>
+      )}
+    </>
+  );
 }
-
-// return <CompanyLayoutUi>{company}</CompanyLayoutUi>;
-
-// import { CompanyLayoutUi } from "@/components/layouts/protected/company";
-// import StudentLayout from "@/components/layouts/protected/student";
-
-// export default function PortalLayout({
-//   company,
-//   student,
-//   children, // Add children to allow rendering page content inside layouts
-// }: {
-//   company?: React.ReactNode;  // Make these optional if they can vary
-//   student?: React.ReactNode;
-//   children: React.ReactNode;  // Always add this to render nested pages
-// }) {
-//   return (
-//     <>
-//       {company && <CompanyLayoutUi>{children}</CompanyLayoutUi>}
-//       {student && <StudentLayout>{children}</StudentLayout>}
-//     </>
-//   );
-// }

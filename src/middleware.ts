@@ -71,8 +71,17 @@ export default async function middleware(req: NextRequest) {
         if (response.status === 401 && pathname.startsWith("/portal")) {
           return NextResponse.redirect(new URL("/signin", req.url));
         }
+      } else {
+        const responseData = await response.json();
+        const user = responseData.data;
+
+        const headers = new Headers(req.headers);
+        headers.set("x-user-role", user.role);
+        headers.set("x-user-email", user.email);
+        return NextResponse.next({
+          request: { headers },
+        });
       }
-     
     }
 
     return NextResponse.next();

@@ -1,5 +1,6 @@
 "use server";
 
+import { z } from "zod";
 import { actionClient } from "@/services/action";
 import {
   verifyStudentIdentitySchema,
@@ -49,7 +50,9 @@ export const signin = actionClient
       password,
     });
 
-    const { accessToken } = response.data.data;
+    const { accessToken, user, role } = response.data.data;
+
+    // const { role} = response.data.data
 
     // Set the token in an HTTP-only cookie
     cookies().set("token", accessToken, {
@@ -60,7 +63,7 @@ export const signin = actionClient
       path: "/",
     });
 
-    return response.data;
+    return { user, accessToken, role };
   });
 
 // export const signin = actionClient
@@ -177,3 +180,85 @@ export const save = actionClient
       throw error; // Ensure the error is propagated back to the frontend
     }
   });
+
+// export const updateProfile = actionClient
+//   .metadata({
+//     actionName: "updateProfile",
+//   })
+//   .action(
+//     async ({
+//       parsedInput: { firstName, lastName, email, phoneNumber, bio, password },
+//     }) => {
+//       try {
+//         const response = await mutate('/student/profile', {
+//           firstName,
+//           lastName,
+//           email,
+//           phoneNumber,
+//           bio,
+//           password,
+//         });
+//         console.log("Profile Response:", response.data);
+//         return response.data;
+//       } catch (error) {
+//         console.log(error);
+//         throw error; // Ensure the error is propagated back to the frontend
+//       }
+//     }
+//   );
+
+// Define the input schema
+const updateProfileSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email address"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  bio: z.string().optional(),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .optional(),
+});
+
+// Define the output schema
+const updateProfileOutputSchema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+  user: z
+    .object({
+      firstName: z.string(),
+      lastName: z.string(),
+      email: z.string(),
+      phoneNumber: z.string(),
+      bio: z.string().optional(),
+    })
+    .optional(),
+});
+
+// Create the action
+export const updateProfile = actionClient
+  .metadata({ actionName: "updateProfile" })
+  .schema(updateProfileSchema)
+  .action(
+    async ({ firstName, lastName, email, phoneNumber, bio, password }) => {
+      try {
+        const response = await mutate("/student/profile", {
+          firstName,
+          lastName,
+          email,
+          phoneNumber,
+          bio,
+          password,
+        });
+
+        console.log("Profile Response:", response.data);
+        return response.data;
+      } catch (error) {
+        console.error("Profile update error:", error);
+        return {
+          success: false,
+          message: "Failed to update profile. Please try again.",
+        };
+      }
+    }
+  );
