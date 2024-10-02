@@ -3,8 +3,10 @@
 import { ApplicantCard } from "../../../../../../../components/applicant-card";
 import { SitePagination } from "@/components/ui/site-pagination";
 import usePaginator from "@/lib/hooks/use-paginator";
+import { useCompany } from "@/context/CompanyContext";
 
 export function Applicants() {
+  const { company } = useCompany();
   const applicants: {}[] = Array.from({ length: 20 });
 
   // Define the type for Applicant
@@ -15,6 +17,8 @@ export function Applicants() {
 
   const { applications, setCurrentPage, postPerPage, currentPage, paginate } =
     usePaginator(6, applicants);
+
+  console.log(company);
 
   return (
     <div>

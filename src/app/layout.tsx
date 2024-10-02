@@ -32,7 +32,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <AppProvider>{children}</AppProvider>
+        <CompanyProvider>
+          <AppProvider>{children}</AppProvider>
+        </CompanyProvider>
       </body>
     </html>
   );
