@@ -5,6 +5,10 @@ export const signinSchema = z.object({
   password: z.string().min(1),
 });
 
+export const acceptSchema = z.object({
+  id: z.string(),
+});
+
 export const verifyStudentIdentitySchema = z.object({
   matNo: z.string().min(1),
   school: z.string().min(1),

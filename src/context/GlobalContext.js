@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import axiosInstance from "@/lib/axiosInstance";
 
 const GlobalContext = createContext();
@@ -20,6 +26,16 @@ export const GlobalProvider = ({ children }) => {
   const [shortlistedApplicants, setShortlistedApplicants] = useState([]);
   const [selectedApplicant, setSelectedApplicant] = useState(null);
 
+  const accept = useCallback(async (id) => {
+    try {
+      const response = await axiosInstance("/student/saved/applications", id);
+      console.log("Application Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error accepting application:", error.message);
+    }
+  }, []);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -33,6 +49,7 @@ export const GlobalProvider = ({ children }) => {
         selectedApplicant,
         setUser,
         setCompany,
+        accept,
         totalApplicants,
         acceptedApplicants,
         shortlistedApplicants,

@@ -172,6 +172,25 @@ export const apply = actionClient
     }
   });
 
+export const acceptApplication = actionClient
+  .metadata({ actionName: "acceptApplication" })
+  .action(async ({ parsedInput: id }) => {
+    try {
+      const studentId = id;
+
+      const response = await mutate(
+        `/company/applicants/accept/${studentId}`,
+        id
+      );
+      console.log("Application Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+
+      throw error; // Ensure the error is propagated back to the frontend
+    }
+  });
+
 export const save = actionClient
   .metadata({ actionName: "save" })
   .action(async ({ parsedInput: id }) => {
