@@ -1,18 +1,84 @@
+"use client";
+
 import Link from "next/link";
 import { ProfileAdd, ArrowRight } from "iconsax-react";
 
 import { OverviewBox } from "@/components/overview-box";
 import { ApplicantCard } from "../../../../../../../components/applicant-card";
 
+import { useGlobal } from "@/context/GlobalContext";
+import { useEffect } from "react";
+import { fetchAllCompanyApplications } from "@/api/actions/auth";
+import { useFetch } from "@/lib/hooks/use-fetch";
+
 export function Dashboard() {
+  const {
+    company,
+    totalApplicants,
+    acceptedApplicants,
+    shortlistedApplicants,
+    setTotalApplicants,
+    setAcceptedApplicants,
+    setShortlistedApplicants,
+  } = useGlobal();
+
+  type Applicant = {
+    id: string;
+    name: string;
+    university: string;
+    student: { firstName: string; lastName: string; school: string };
+    accepted: boolean;
+    createdAt: string;
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetchAllCompanyApplications();
+        const total = response?.data.totalApplicants;
+        setTotalApplicants(total);
+        const accepted = response?.data.acceptedApplicants;
+        setAcceptedApplicants(response?.data.acceptedApplicants);
+        const shortlisted = response?.data.shortListedApplicants;
+        setShortlistedApplicants(shortlisted);
+
+        console.log({
+          total,
+          accepted,
+          shortlisted,
+        });
+
+        console.log({
+          acceptedApplicantsCount: acceptedApplicants,
+        });
+      } catch (error) {
+        console.error("Failed to fetch applications:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="flex flex-col gap-4">
       <h5 className="text-h6">Hello NNPC</h5>
       <p className=" text-grey-3">This is the overview of your activities</p>
       <div className="flex gap-4 flex-wrap">
-        <OverviewBox title="Total" number={44} icon={<ProfileAdd />} />
-        <OverviewBox title="Shortedlisted" number={44} icon={<ProfileAdd />} />
-        <OverviewBox title="Accepted" number={44} icon={<ProfileAdd />} />
+        <OverviewBox
+          title="Total"
+          number={totalApplicants[1] || 0}
+          icon={<ProfileAdd />}
+        />
+        <OverviewBox
+          title="Shortedlisted"
+          number={shortlistedApplicants[1] || 0}
+          icon={<ProfileAdd />}
+        />
+        <OverviewBox
+          title="Accepted"
+          number={acceptedApplicants[1] || 0}
+          icon={<ProfileAdd />}
+        />
       </div>
       <div>
         <div className="flex justify-between my-5">
@@ -23,16 +89,10 @@ export function Dashboard() {
           </Link>
         </div>
         <div>
-          {Array.from({ length: 10 })
-            .slice(0, 5)
-            .map((_, index) => (
-              <ApplicantCard
-                key={index}
-                applicant={{
-                  name: "Aye Memuduaghan",
-                  university: "University of Port Harcout",
-                }}
-              />
+          {totalApplicants?.[0]
+            ?.slice(0, 5)
+            .map((applicant: Applicant, index: number) => (
+              <ApplicantCard key={index} applicant={applicant} />
             ))}
         </div>
       </div>

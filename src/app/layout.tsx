@@ -6,7 +6,7 @@ import { AppProvider } from "@/components/providers/app-provider";
 import { inter, montserrat } from "@/lib/utils/fonts";
 import { app } from "@/config/app";
 
-import { CompanyProvider } from "@/context/CompanyContext";
+import { GlobalProvider } from "@/context/GlobalContext";
 
 export const metadata: Metadata = {
   title: app.title,
@@ -32,9 +32,9 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <CompanyProvider>
+        <GlobalProvider>
           <AppProvider>{children}</AppProvider>
-        </CompanyProvider>
+        </GlobalProvider>
       </body>
     </html>
   );

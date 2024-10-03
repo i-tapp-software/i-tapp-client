@@ -11,6 +11,7 @@ import {
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
+import { useGlobal } from "@/context/GlobalContext";
 
 // export const signin = actionClient
 //   .metadata({ actionName: "signin" })
@@ -45,7 +46,7 @@ export const signin = actionClient
   .metadata({ actionName: "signin" })
   .schema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const response = await mutate("/auth/login", {
+    const response = await mutate("/company/login", {
       email,
       password,
     });
@@ -113,6 +114,20 @@ export const fetchJobs = actionClient
     try {
       const response = await query("/student/jobs");
       const data = await response.json(); // Parse the body
+      return data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+export const fetchAllCompanyApplications = actionClient
+  .metadata({
+    actionName: "fetchAllCompanyApplications",
+  })
+  .action(async () => {
+    try {
+      const response = await query("/company/all/category");
+      const data = await response.json(); // Parse the body
       console.log(data.data); // Log the actual data
       return data.data;
     } catch (error) {
@@ -128,7 +143,6 @@ export const fetchApplication = actionClient
     try {
       const response = await query("/student/applications");
       const data = await response.json(); // Parse the body
-      console.log(data.data); // Log the actual data
       return data.data;
     } catch (error) {
       console.log(error);
