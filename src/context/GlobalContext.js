@@ -28,11 +28,17 @@ export const GlobalProvider = ({ children }) => {
 
   const accept = useCallback(async (id) => {
     try {
-      const response = await axiosInstance("/student/saved/applications", id);
+      const response = await axiosInstance.post(
+        `/student/saved/applications`,
+        id
+      );
       console.log("Application Response:", response.data);
       return response.data;
     } catch (error) {
-      console.error("Error accepting application:", error.message);
+      console.error("Error accepting application:", error);
+
+      throw new Error(error);
+      return error;
     }
   }, []);
 
