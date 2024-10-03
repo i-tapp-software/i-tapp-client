@@ -8,6 +8,7 @@ import {
   studentSignupSchema,
   companySignupSchema,
   fullCompanySignupSchema,
+  createSpaceSchema,
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
@@ -46,7 +47,7 @@ export const signin = actionClient
   .metadata({ actionName: "signin" })
   .schema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const response = await mutate("/company/login", {
+    const response = await mutate("/auth/login", {
       email,
       password,
     });
@@ -158,16 +159,6 @@ export const apply = actionClient
       return response.data;
     } catch (error) {
       console.log(error);
-      // if (error.response) {
-      //   // Server responded with a status other than 2xx
-      //   console.error("Server Error:", error.response.data);
-      // } else if (error.request) {
-      //   // No response received
-      //   console.error("No response received:", error.request);
-      // } else {
-      //   // Other errors
-      //   console.error("Error:", error.message);
-      // }
       throw error; // Ensure the error is propagated back to the frontend
     }
   });
@@ -176,12 +167,35 @@ export const acceptApplication = actionClient
   .metadata({ actionName: "acceptApplication" })
   .action(async ({ parsedInput: id }) => {
     try {
-      const studentId = id;
+      const response = await mutate(`/company/applicants/accept/`, id);
+      console.log("Application Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
 
-      const response = await mutate(
-        `/company/applicants/accept/${studentId}`,
-        id
-      );
+      throw error; // Ensure the error is propagated back to the frontend
+    }
+  });
+
+export const declineApplication = actionClient
+  .metadata({ actionName: "declineApplication" })
+  .action(async ({ parsedInput: id }) => {
+    try {
+      const response = await mutate(`/company/applicants/accept/`, id);
+      console.log("Application Response:", response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+
+      throw error; // Ensure the error is propagated back to the frontend
+    }
+  });
+
+export const bookmarkApplication = actionClient
+  .metadata({ actionName: "bookmarkApplication" })
+  .action(async ({ parsedInput: id }) => {
+    try {
+      const response = await mutate(`/company/applicants/accept/`, id);
       console.log("Application Response:", response.data);
       return response.data;
     } catch (error) {
@@ -200,19 +214,45 @@ export const save = actionClient
       return response.data;
     } catch (error) {
       console.log(error);
-      // if (error.response) {
-      //   // Server responded with a status other than 2xx
-      //   console.error("Server Error:", error.response.data);
-      // } else if (error.request) {
-      //   // No response received
-      //   console.error("No response received:", error.request);
-      // } else {
-      //   // Other errors
-      //   console.error("Error:", error.message);
-      // }
       throw error; // Ensure the error is propagated back to the frontend
     }
   });
+
+export const createSpace = actionClient
+  .metadata({ actionName: "createSpace" })
+  .schema(createSpaceSchema)
+  .action(
+    async ({
+      parsedInput: {
+        title,
+        level,
+        duration,
+        address,
+        city,
+        state,
+        description,
+        industry,
+      },
+    }) => {
+      try {
+        const response = await mutate("/company/job/new", {
+          title,
+          level,
+          duration,
+          address,
+          city,
+          state,
+          description,
+          industry,
+        });
+        console.log("Application Response:", response.data);
+        return response.data;
+      } catch (error) {
+        console.log(error);
+        throw error; // Ensure the error is propagated back to the frontend
+      }
+    }
+  );
 
 // export const updateProfile = actionClient
 //   .metadata({

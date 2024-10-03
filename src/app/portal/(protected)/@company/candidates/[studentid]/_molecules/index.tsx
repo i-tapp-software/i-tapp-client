@@ -11,6 +11,12 @@ import {
 import { useGlobal } from "@/context/GlobalContext";
 
 import { Button } from "@/components/ui/button";
+import {
+  acceptApplication,
+  declineApplication,
+  bookmarkApplication,
+} from "@/api/actions/auth";
+import { useAction } from "next-safe-action/hooks";
 
 export function CandidateProfile() {
   const { selectedApplicant } = useGlobal();
@@ -18,6 +24,45 @@ export function CandidateProfile() {
   const student = selectedApplicant?.student;
 
   const name = student?.firstName + " " + student?.lastName;
+
+  const {
+    execute: acceptAction,
+    isExecuting: isAccepting,
+    hasErrored: hasAcceptError,
+  } = useAction(acceptApplication, {
+    onSuccess: (data) => {
+      console.log("Application has been accepted.");
+    },
+    onError: (error) => {
+      console.error("Error accepting application:", error);
+    },
+  });
+
+  const {
+    execute: declineAction,
+    isExecuting: isDeclining,
+    hasErrored: hasDeclineError,
+  } = useAction(declineApplication, {
+    onSuccess: () => {
+      alert("Application has been declined.");
+    },
+    onError: () => {
+      alert("Error declining application.");
+    },
+  });
+
+  const {
+    execute: bookmarkAction,
+    isExecuting: isBookmarking,
+    hasErrored: hasBookmarkError,
+  } = useAction(bookmarkApplication, {
+    onSuccess: () => {
+      alert("Application has been bookmarked.");
+    },
+    onError: () => {
+      alert("Error bookmarking application.");
+    },
+  });
 
   console.log(selectedApplicant);
   return (
@@ -40,10 +85,20 @@ export function CandidateProfile() {
           </div>
         </div>
         <div className="flex gap-3 self-center">
-          <Button size="sm" className=" bg-[#27AE60] px-6 py-3 ">
+          <Button
+            onClick={() => acceptAction({ studentId: student.id })}
+            size="sm"
+            disabled={isAccepting}
+            className=" bg-[#27AE60] px-6 py-3 "
+          >
             Accept
           </Button>
-          <Button size="sm" className="bg-[#EB5757] px-6 py-3 ">
+          <Button
+            onClick={() => declineAction({ studentId: student.id })}
+            disabled={isDeclining}
+            size="sm"
+            className="bg-[#EB5757] px-6 py-3 "
+          >
             Decline
           </Button>
         </div>

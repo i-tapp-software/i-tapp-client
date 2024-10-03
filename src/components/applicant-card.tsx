@@ -19,6 +19,8 @@ import { useAction } from "next-safe-action/hooks";
 
 export type ApplicantProps = {
   id: string;
+  accepted: boolean;
+
   student: {
     id: string;
     firstName: string;
@@ -29,19 +31,15 @@ export type ApplicantProps = {
 };
 
 export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
-  const { setSelectedApplicant, accept } = useGlobal();
+  const { setSelectedApplicant } = useGlobal();
 
   const { id, student, application_status } = applicant;
-
-  const payLoad = {
-    studentId: student.id,
-  };
 
   const {
     execute: acceptAction,
     isExecuting: isAccepting,
     hasErrored: hasAcceptError,
-  } = useAction(accept, {
+  } = useAction(acceptApplication, {
     onSuccess: (data) => {
       console.log("Application has been accepted.");
     },
@@ -102,16 +100,18 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
         </div>
         <div className="flex gap-4 self-center items-center">
           <button
-            onClick={() => acceptAction({ id: "77777" })}
+            onClick={() => bookmarkAction({ id: "77777" })}
             disabled={isBookmarking}
             className="disabled:opacity-50"
           >
             <ArchiveAdd size={24} />
           </button>
-          {application_status !== "Accepted" ? (
+          {applicant.accepted === true ? (
+            <SmsEdit size={24} />
+          ) : (
             <>
               <button
-                onClick={() => acceptAction({ id })}
+                onClick={() => acceptAction({ studentId: student.id })}
                 disabled={isAccepting}
                 className="disabled:opacity-50"
               >
@@ -122,7 +122,7 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
                 />
               </button>
               <button
-                onClick={() => acceptAction({ studentId: student.id })}
+                onClick={() => declineAction({ studentId: student.id })}
                 disabled={isDeclining}
                 className="disabled:opacity-50"
               >
@@ -133,8 +133,6 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
                 />
               </button>
             </>
-          ) : (
-            <SmsEdit size={24} />
           )}
           <Link
             href={`/portal/candidates/${id}`}

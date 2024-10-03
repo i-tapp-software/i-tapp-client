@@ -13,7 +13,7 @@ interface PortalLayoutProps {
 export default function PortalLayout({
   company,
   student,
-  userRole = "company",
+  userRole = "student",
 }: PortalLayoutProps) {
   const headerList = headers();
 
