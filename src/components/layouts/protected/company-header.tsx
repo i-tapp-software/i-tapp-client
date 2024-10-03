@@ -27,7 +27,7 @@ export const navLinks: { text: string; href: string }[] = [
   },
   {
     text: "Candidates",
-    href: "/portal/candidates/all",
+    href: "/portal/candidates/accepted",
   },
 ];
 

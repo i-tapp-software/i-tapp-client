@@ -18,6 +18,7 @@ export const GlobalProvider = ({ children }) => {
   const [totalApplicants, setTotalApplicants] = useState([]);
   const [acceptedApplicants, setAcceptedApplicants] = useState([]);
   const [shortlistedApplicants, setShortlistedApplicants] = useState([]);
+  const [selectedApplicant, setSelectedApplicant] = useState(null);
 
   return (
     <GlobalContext.Provider
@@ -28,6 +29,8 @@ export const GlobalProvider = ({ children }) => {
         setTotalApplicants,
         setAcceptedApplicants,
         setShortlistedApplicants,
+        setSelectedApplicant,
+        selectedApplicant,
         setUser,
         setCompany,
         totalApplicants,

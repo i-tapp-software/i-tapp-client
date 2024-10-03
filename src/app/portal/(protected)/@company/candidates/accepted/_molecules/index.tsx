@@ -4,6 +4,8 @@ import usePaginator from "@/lib/hooks/use-paginator";
 import { SitePagination } from "@/components/ui/site-pagination";
 import { ApplicantCard } from "@/components/applicant-card";
 
+import { useGlobal } from "@/context/GlobalContext";
+
 // export function AcceptedApplicants() {
 //   const applicants: {}[] = Array.from({ length: 10 });
 
@@ -35,6 +37,8 @@ import { ApplicantCard } from "@/components/applicant-card";
 // }
 
 export function AcceptedApplicants() {
+  const { selectedApplicant, setSelectedApplicant, AcceptedApplicants } =
+    useGlobal();
   type Applicant = {
     name: string;
     university: string;
@@ -49,16 +53,11 @@ export function AcceptedApplicants() {
   return (
     <div>
       <p className="mb-4">Accepted Applicants</p>
-      {applications.map((applicant: Applicant, index: number) => (
-        <ApplicantCard
-          key={index}
-          applicant={{
-            name: "Kennedy",
-            university: "kasu",
-            application_status: "accepted",
-          }}
-        />
-      ))}
+      {AcceptedApplicants?.[0]
+        ?.slice(0, 5)
+        .map((applicant: Applicant, index: number) => (
+          <ApplicantCard key={index} applicant={applicant} />
+        ))}
       <SitePagination
         totalPosts={applicants.length}
         postsPerPage={postPerPage}

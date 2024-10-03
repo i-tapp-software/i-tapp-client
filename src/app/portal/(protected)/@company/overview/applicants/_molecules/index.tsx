@@ -37,15 +37,11 @@ export function Applicants() {
             }}
           />
         ))} */}
-        {totalApplicants?.[0]?.slice(0, 5).map((applicant: Applicant) => (
-          <ApplicantCard
-            key={applicant.id}
-            applicant={{
-              name: `${applicant.student.firstName} ${applicant.student.lastName}`,
-              university: applicant.student.school || "Not specified",
-            }}
-          />
-        ))}
+        {totalApplicants?.[0]
+          ?.slice(0, 5)
+          .map((applicant: Applicant, index: number) => (
+            <ApplicantCard key={index} applicant={applicant} />
+          ))}
       </div>
       <SitePagination
         totalPosts={applicants.length}

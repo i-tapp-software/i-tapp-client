@@ -34,10 +34,6 @@ const sideNavLinks: {
   ],
   candidates: [
     {
-      text: "All",
-      href: "/portal/candidates/all",
-    },
-    {
       text: "Accepted",
       href: "/portal/candidates/accepted",
     },

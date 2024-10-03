@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -7,32 +9,23 @@ import {
   SmsEdit,
   TickCircle,
 } from "iconsax-react";
-import { useRouter } from "next/router";
+import { useGlobal } from "@/context/GlobalContext";
 
 export type ApplicantProps = {
   id: string;
   name: string;
-  student: { firstName: string; lastName: string; school: string };
+  student: { id: string; firstName: string; lastName: string; school: string };
   university: string;
   application_status?: string;
 };
 
 export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
+  const { selectedApplicant, setSelectedApplicant } = useGlobal();
+
   const { name, university, application_status, id } = applicant;
 
-  const router = useRouter();
-
-  console.log(id);
-
   const handleViewProfile = () => {
-    router.push(
-      {
-        pathname: `/portal/candidates/${id}`,
-        query: { id: id },
-      },
-      `/portal/candidates/${id}`,
-      { shallow: true, state: { applicant } }
-    );
+    setSelectedApplicant(applicant);
   };
 
   return (
@@ -65,20 +58,14 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
           ) : (
             <SmsEdit />
           )}
-          {/* <Link
-            href={`/portal/candidates/${id}`}
+          <Link
+            href="/portal/candidates/1"
             className="flex gap-[10px] py-3 px-6 rounded-lg bg-secondary"
-          >
-            View profile
-            <ArrowRight size={24} />
-          </Link> */}
-          <button
             onClick={handleViewProfile}
-            className="flex gap-[10px] py-3 px-6 rounded-lg bg-secondary"
           >
             View profile
             <ArrowRight size={24} />
-          </button>
+          </Link>
         </div>
       </div>
       {application_status === "Accepted" && (

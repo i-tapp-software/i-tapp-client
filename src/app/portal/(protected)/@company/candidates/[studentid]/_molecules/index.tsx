@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import {
   ArchiveAdd,
@@ -7,10 +8,18 @@ import {
   Note1,
   Sms,
 } from "iconsax-react";
+import { useGlobal } from "@/context/GlobalContext";
 
 import { Button } from "@/components/ui/button";
 
 export function CandidateProfile() {
+  const { selectedApplicant } = useGlobal();
+
+  const student = selectedApplicant?.student;
+
+  const name = student?.firstName + " " + student?.lastName;
+
+  console.log(selectedApplicant);
   return (
     <div>
       <div className="flex gap-6 justify-between flex-wrap">
@@ -24,9 +33,9 @@ export function CandidateProfile() {
             className="rounded-full"
           />
           <div className="self-center">
-            <p className=" font-semi-bold text-lg">Oghenekevwe Igbenedion</p>
+            <p className=" font-semi-bold text-lg">{name}</p>
             <p className="text-base pt-1.5 pr-2.5 text-grey-3">
-              Chemical Engineering student
+              {student.courseOfStudy || "Not specified"}
             </p>
           </div>
         </div>
@@ -45,18 +54,7 @@ export function CandidateProfile() {
 
         <div className="flex justify-between gap-4 flex-wrap">
           <p className="text-sm max-w-[590px]">
-            Velstar is a Shopify Plus agency, and we partner with brands to help
-            them grow, we also do the same with our people!
-            <br /> <br />
-            Here at Velstar, we don't just make websites, we create exceptional
-            digital experiences that consumers love. Our team of designers,
-            developers, strategists, and creators work together to push brands
-            to the next level. From Platform Migration, User Experience & User
-            Interface Design, to Digital Marketing, we have a proven track
-            record in delivering outstanding eCommerce solutions and driving
-            sales for our clients.Want to work with us? You're in good company!
-            <br /> <br />
-            Want to work with us? You're in good company!
+            {student?.bio || "No bio provided."}
           </p>
 
           <div className=" border-[#E7F0FA] border-2 max-w-[380px] rounded-md">
@@ -66,19 +64,21 @@ export function CandidateProfile() {
               <div className="flex flex-col gap-1">
                 <Note1 className="text-primary" />
                 <p className="text-[#767F8C] text-sm"> NAME OF SCHOOL</p>
-                <p className="font-bold">fupre</p>
+                <p className="font-bold">{student?.school}</p>
               </div>
 
               <div className="flex flex-col gap-1">
                 <Sms className="text-primary" />
                 <p className="text-[#767F8C] text-sm">EMAIL ADDRESS</p>
-                <p className="font-bold">jutindikonu@gmail.com</p>
+                <p className="font-bold">{student?.email}</p>
               </div>
 
               <div className="flex flex-col gap-1">
                 <Call className="text-primary" />
                 <p className="text-[#767F8C] text-sm">PHONE NUMBER</p>
-                <p className="font-bold text-sm">0484949499944</p>
+                <p className="font-bold text-sm">
+                  {student.phoneNumber || "Not specified"}
+                </p>
               </div>
 
               <div className="flex flex-col gap-1">
