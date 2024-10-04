@@ -89,7 +89,7 @@ export function CompanyHeader() {
             </Tooltip>
           </TooltipProvider>
 
-          <Link href="/profile">
+          <Link href="/portal/profile">
             <Image
               src="/applicant.png"
               alt="applicant"

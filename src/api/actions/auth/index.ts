@@ -47,12 +47,14 @@ export const signin = actionClient
   .metadata({ actionName: "signin" })
   .schema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const response = await mutate("/auth/login", {
+    const response = await mutate("/company/login", {
       email,
       password,
     });
 
-    const { accessToken, user, role } = response.data.data;
+    console.log(response.data.data);
+
+    const { accessToken, user, company, role } = response.data.data;
 
     // const { role} = response.data.data
 
@@ -65,7 +67,7 @@ export const signin = actionClient
       path: "/",
     });
 
-    return { user, accessToken, role };
+    return { user, accessToken, role, company };
   });
 
 // export const signin = actionClient
@@ -128,6 +130,21 @@ export const fetchAllCompanyApplications = actionClient
   .action(async () => {
     try {
       const response = await query("/company/all/category");
+      const data = await response.json(); // Parse the body
+      console.log(data.data); // Log the actual data
+      return data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+export const fetchCompanyJobs = actionClient
+  .metadata({
+    actionName: "fetchCompanyJobs",
+  })
+  .action(async () => {
+    try {
+      const response = await query("/company/jobs/all");
       const data = await response.json(); // Parse the body
       console.log(data.data); // Log the actual data
       return data.data;

@@ -36,11 +36,14 @@ export function CompanySignIn() {
   const { execute, isExecuting, result, hasErrored } = useAction(signin, {
     onSuccess(data) {
       const userRole = data?.data?.user?.role;
-      console.log("Logged in successfully", userRole);
+      const user = data?.data?.user;
+      const company = data?.data?.company;
       if (userRole === "student") {
         router.push("/portal/find-it-space");
+        localStorage.setItem("user", JSON.stringify(user));
       } else {
         router.push("/portal/overview/dashboard");
+        localStorage.setItem("company", JSON.stringify(company));
       }
     },
   });

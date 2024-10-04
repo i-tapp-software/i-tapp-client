@@ -49,8 +49,7 @@ export const createSpaceSchema = z.object({
   address: z.string().min(5, "Address must be at least 5 characters"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   duration: z.enum(["3", "6", "12"]).transform(Number),
-  bio: z.string().min(10, "Bio must be at least 10 characters"),
-  showAvailability: z.boolean().default(false),
+  // showAvailability: z.boolean().default(false),
 });
 
 export const fullCompanySignupSchema =

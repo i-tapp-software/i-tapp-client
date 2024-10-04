@@ -260,8 +260,7 @@ export function AddSpaceForm() {
       city: "",
       address: "",
       description: "",
-      duration: "3",
-      bio: "",
+      duration: 3,
       // showAvailability: false,
     },
   });
@@ -357,7 +356,7 @@ export function AddSpaceForm() {
                   <FormLabel>IT Duration</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    // defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -436,24 +435,7 @@ export function AddSpaceForm() {
                 <FormControl>
                   <Textarea
                     placeholder="Describe this internship opportunity"
-                    className="h-24 resize-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="bio"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Bio</FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Tell us about yourself or your company"
-                    className="h-24 resize-none"
+                    className="h-20 resize-none"
                     {...field}
                   />
                 </FormControl>

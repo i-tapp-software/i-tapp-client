@@ -13,7 +13,6 @@ import { useFetch } from "@/lib/hooks/use-fetch";
 
 export function Dashboard() {
   const {
-    company,
     totalApplicants,
     acceptedApplicants,
     shortlistedApplicants,
@@ -59,9 +58,13 @@ export function Dashboard() {
     fetchData();
   }, []);
 
+  const company = JSON.parse(localStorage.getItem("company") || "{}");
+
   return (
     <div className="flex flex-col gap-4">
-      <h5 className="text-h6">Hello NNPC</h5>
+      <h5 className="text-h6">
+        Hello <span className="uppercase">{company.name}</span>
+      </h5>
       <p className=" text-grey-3">This is the overview of your activities</p>
       <div className="flex gap-4 flex-wrap">
         <OverviewBox

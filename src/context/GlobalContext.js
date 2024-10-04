@@ -25,22 +25,7 @@ export const GlobalProvider = ({ children }) => {
   const [acceptedApplicants, setAcceptedApplicants] = useState([]);
   const [shortlistedApplicants, setShortlistedApplicants] = useState([]);
   const [selectedApplicant, setSelectedApplicant] = useState(null);
-
-  const accept = useCallback(async (id) => {
-    try {
-      const response = await axiosInstance.post(
-        `/student/saved/applications`,
-        id
-      );
-      console.log("Application Response:", response.data);
-      return response.data;
-    } catch (error) {
-      console.error("Error accepting application:", error);
-
-      throw new Error(error);
-      return error;
-    }
-  }, []);
+  const [companyJobs, setCompanyJobs] = useState([]);
 
   return (
     <GlobalContext.Provider
@@ -55,7 +40,8 @@ export const GlobalProvider = ({ children }) => {
         selectedApplicant,
         setUser,
         setCompany,
-        accept,
+        companyJobs,
+        setCompanyJobs,
         totalApplicants,
         acceptedApplicants,
         shortlistedApplicants,
