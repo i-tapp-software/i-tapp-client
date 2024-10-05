@@ -40,6 +40,27 @@ export const companySignupSchema = z.object({
   companyId: z.string().min(1),
 });
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+export const companyProfileSchema = z.object({
+  phone: z.string().min(1, "Phone number is required"),
+  companyWebsite: z.string().url("Invalid URL").optional().or(z.literal("")),
+  address: z.string().min(1, "Address is required"),
+  description: z.string().min(1, "Description is required"),
+  studentCapacity: z
+    .number()
+    .int()
+    .positive("Capacity must be a positive integer"),
+  profilePicture: z
+    .instanceof(File)
+    .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
+    .optional(),
+  bannerImage: z
+    .instanceof(File)
+    .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
+    .optional(),
+});
+
 export const createSpaceSchema = z.object({
   title: z.string().min(2, "Title must be at least 2 characters"),
   industry: z.string().min(2, "Industry must be at least 2 characters"),

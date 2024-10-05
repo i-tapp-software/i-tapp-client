@@ -9,6 +9,8 @@ import {
   companySignupSchema,
   fullCompanySignupSchema,
   createSpaceSchema,
+  profileSchema,
+  companyProfileSchema,
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
@@ -310,21 +312,6 @@ const updateProfileSchema = z.object({
     .optional(),
 });
 
-// Define the output schema
-const updateProfileOutputSchema = z.object({
-  success: z.boolean(),
-  message: z.string(),
-  user: z
-    .object({
-      firstName: z.string(),
-      lastName: z.string(),
-      email: z.string(),
-      phoneNumber: z.string(),
-      bio: z.string().optional(),
-    })
-    .optional(),
-});
-
 // Create the action
 export const updateProfile = actionClient
   .metadata({ actionName: "updateProfile" })
@@ -348,6 +335,48 @@ export const updateProfile = actionClient
         return {
           success: false,
           message: "Failed to update profile. Please try again.",
+        };
+      }
+    }
+  );
+
+export const updateCompanyProfile = actionClient
+  .metadata({ actionName: "updateCompanyProfile" })
+  .schema(companyProfileSchema)
+  .action(
+    async ({
+      parsedInput: {
+        phone,
+        companyWebsite,
+        address,
+        description,
+        studentCapacity,
+        profilePicture,
+        bannerImage,
+      },
+    }) => {
+      try {
+        const response = await mutate("/company/profile", {
+          phone,
+          companyWebsite,
+          address,
+          description,
+          studentCapacity,
+          profilePicture,
+          bannerImage,
+        });
+
+        console.log("Company Profile Response:", response.data);
+        return {
+          success: true,
+          message: "Company profile updated successfully.",
+          data: response.data,
+        };
+      } catch (error) {
+        console.error("Company profile update error:", error);
+        return {
+          success: false,
+          message: "Failed to update company profile. Please try again.",
         };
       }
     }
