@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { companyProfileSchema } from "@/lib/validations/auth";
+// import { toast } from "@/components/ui/use-toast";
 
 type ProfileFormData = z.infer<typeof companyProfileSchema>;
 
@@ -21,7 +22,7 @@ export default function ProfileForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<ProfileFormData>({
     resolver: zodResolver(companyProfileSchema),
@@ -34,7 +35,7 @@ export default function ProfileForm() {
         console.log("Profile updated successfully!", data);
         // toast({
         //   title: "Success",
-        //   description: data.message,
+        //   description: "Company profile updated successfully.",
         // });
       },
       onError(error) {
@@ -246,8 +247,13 @@ export default function ProfileForm() {
 
         {/* Form Buttons */}
         <div className="flex items-center justify-between">
-          <Button type="submit" disabled={status === "executing"}>
-            {status === "executing" ? "Updating..." : "Update Profile"}
+          <Button
+            type="submit"
+            disabled={isSubmitting || status === "executing"}
+          >
+            {isSubmitting || status === "executing"
+              ? "Updating..."
+              : "Update Profile"}
           </Button>
           <Button type="button" variant="ghost" onClick={() => reset()}>
             Reset
