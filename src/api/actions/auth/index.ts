@@ -16,8 +16,6 @@ import { cookies } from "next/headers";
 import { NextApiRequest, NextApiResponse } from "next";
 import fs from "fs/promises";
 
-import formidable from "formidable";
-
 // export const signin = actionClient
 //   .metadata({ actionName: "signin" })
 //   .schema(signinSchema)
@@ -51,7 +49,7 @@ export const signin = actionClient
   .metadata({ actionName: "signin" })
   .schema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const response = await mutate("/company/login", {
+    const response = await mutate("/auth/login", {
       email,
       password,
     });
@@ -164,6 +162,20 @@ export const fetchApplication = actionClient
   .action(async () => {
     try {
       const response = await query("/student/applications");
+      const data = await response.json(); // Parse the body
+      return data.data;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+export const fetchSavedApplication = actionClient
+  .metadata({
+    actionName: "fetchSavedApplication",
+  })
+  .action(async () => {
+    try {
+      const response = await query("/student/saved/applications");
       const data = await response.json(); // Parse the body
       return data.data;
     } catch (error) {
@@ -358,49 +370,33 @@ export const updateProfile = actionClient
 
 // Update the company profile schema to include file fields
 
-async function parseFormData(req: NextApiRequest) {
-  const form = new formidable.IncomingForm();
+// async function parseFormData(req: NextApiRequest) {
+//   const form = new formidable.IncomingForm();
 
-  return new Promise((resolve, reject) => {
-    form.parse(req, (err, fields, files) => {
-      if (err) reject(err);
-      resolve({ fields, files });
-    });
-  });
-}
+//   return new Promise((resolve, reject) => {
+//     form.parse(req, (err, fields, files) => {
+//       if (err) reject(err);
+//       resolve({ fields, files });
+//     });
+//   });
+// }
 
 export const updateCompanyProfile = actionClient
   .metadata({ actionName: "updateCompanyProfile" })
-  .action(
-    async (formData: FormData, req: NextApiRequest, res: NextApiResponse) => {
-      try {
-        const parsedData = await parseFormData(req);
+  .action(async (input) => {
+    try {
+      // Perform your update logic here
+      console.log("Updating company profile with:", {});
 
-        const { fields, files } = parsedData as {
-          fields: formidable.Fields;
-          files: formidable.Files;
-        };
-
-        // Handle file uploads
-        // Handle file uploads
-
-        const { phone } = fields;
-
-        // Perform your update logic here
-        console.log("Updating company profile with:", {
-          phone,
-        });
-
-        return {
-          success: true,
-          message: "Company profile updated successfully.",
-        };
-      } catch (error) {
-        console.error("Error updating company profile:", error);
-        return {
-          success: false,
-          message: "Failed to update company profile. Please try again.",
-        };
-      }
+      return {
+        success: true,
+        message: "Company profile updated successfully.",
+      };
+    } catch (error) {
+      console.error("Error updating company profile:", error);
+      return {
+        success: false,
+        message: "Failed to update company profile. Please try again.",
+      };
     }
-  );
+  });

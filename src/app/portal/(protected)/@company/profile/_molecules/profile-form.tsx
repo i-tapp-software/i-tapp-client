@@ -6,18 +6,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Upload } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { updateCompanyProfile } from "@/api/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { companyProfileSchema } from "@/lib/validations/auth";
-// import { toast } from "@/components/ui/use-toast";
+import { useGlobal } from "@/context/GlobalContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 type ProfileFormData = z.infer<typeof companyProfileSchema>;
 
 export default function ProfileForm() {
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [bannerImage, setBannerImage] = useState<File | null>(null);
+
+  const { updateCompanyProfile } = useGlobal();
 
   const {
     register,
@@ -33,39 +36,17 @@ export default function ProfileForm() {
     {
       onSuccess(data) {
         console.log("Profile updated successfully!", data);
-        // toast({
-        //   title: "Success",
-        //   description: "Company profile updated successfully.",
-        // });
+        toast.success("Company profile updated successfully.");
       },
       onError(error) {
         console.error("Failed to update profile", error);
-        // toast({
-        //   title: "Error",
-        //   description: "Failed to update profile. Please try again.",
-        //   variant: "destructive",
-        // });
+        toast.error("Failed to update company profile. Please try again.");
       },
     }
   );
 
   const onSubmit = (data: ProfileFormData) => {
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        formData.append(key, value.toString());
-      }
-    });
-
-    if (profilePicture) {
-      formData.append("profilePicture", profilePicture);
-    }
-
-    if (bannerImage) {
-      formData.append("bannerImage", bannerImage);
-    }
-
-    updateProfileAction(formData);
+    updateCompanyProfile(data);
   };
 
   const handleFileChange = (
@@ -102,11 +83,11 @@ export default function ProfileForm() {
               className="hidden"
             />
           </label>
-          {errors.bannerImage && (
+          {/* {errors.bannerImage && (
             <p className="text-red-500 text-sm mt-1">
               {errors.bannerImage.message}
             </p>
-          )}
+          )} */}
         </div>
 
         {/* Profile Picture Upload */}
@@ -133,11 +114,11 @@ export default function ProfileForm() {
               />
             </div>
           </label>
-          {errors.profilePicture && (
+          {/* {errors.profilePicture && (
             <p className="text-red-500 text-sm mt-1 ml-4">
               {errors.profilePicture.message}
             </p>
-          )}
+          )} */}
         </div>
 
         {/* Form Fields with Labels */}
@@ -246,20 +227,24 @@ export default function ProfileForm() {
         </div>
 
         {/* Form Buttons */}
-        <div className="flex items-center justify-between">
+
+        <div className="xxs:text-start space-x-2">
           <Button
             type="submit"
+            size="sm"
             disabled={isSubmitting || status === "executing"}
+            className="mx-auto"
           >
             {isSubmitting || status === "executing"
               ? "Updating..."
               : "Update Profile"}
           </Button>
-          <Button type="button" variant="ghost" onClick={() => reset()}>
+          <button type="button" className="p-3" onClick={() => reset()}>
             Reset
-          </Button>
+          </button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 }

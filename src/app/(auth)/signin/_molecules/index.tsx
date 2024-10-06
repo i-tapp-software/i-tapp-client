@@ -38,6 +38,11 @@ export function CompanySignIn() {
       const userRole = data?.data?.user?.role;
       const user = data?.data?.user;
       const company = data?.data?.company;
+      const accessToken = data?.data?.accessToken;
+
+      console.log(accessToken);
+
+      localStorage.setItem("token", accessToken);
       if (userRole === "student") {
         router.push("/portal/find-it-space");
         localStorage.setItem("user", JSON.stringify(user));

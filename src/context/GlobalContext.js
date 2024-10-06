@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 import axiosInstance from "@/lib/axiosInstance";
 
 const GlobalContext = createContext();
@@ -26,6 +20,65 @@ export const GlobalProvider = ({ children }) => {
   const [shortlistedApplicants, setShortlistedApplicants] = useState([]);
   const [selectedApplicant, setSelectedApplicant] = useState(null);
   const [companyJobs, setCompanyJobs] = useState([]);
+  const [savedApplications, setSavedApplications] = useState([]);
+
+  const updateCompanyProfile = useCallback(async (data) => {
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, value.toString());
+        }
+      });
+
+      if (data.profilePicture) {
+        formData.append("profilePicture", data.profilePicture);
+      }
+
+      if (data.bannerImage) {
+        formData.append("bannerImage", data.bannerImage);
+      }
+
+      const response = await axiosInstance.post(`/company/profile`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Company profile updated successfully:", response);
+    } catch (error) {
+      console.log("Error updating company profile:", error);
+    }
+  }, []);
+
+  const updateStudentProfile = useCallback(async (data) => {
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, value.toString());
+        }
+      });
+
+      if (data.profilePicture) {
+        formData.append("profileImage", data.profileImage);
+      }
+
+      if (data.bannerImage) {
+        formData.append("documents", data.documents);
+      }
+
+      const response = await axiosInstance.post(`/student/profile`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("Company profile updated successfully:", response);
+    } catch (error) {
+      console.log("Error updating company profile:", error);
+    }
+  }, []);
 
   return (
     <GlobalContext.Provider
@@ -45,6 +98,10 @@ export const GlobalProvider = ({ children }) => {
         totalApplicants,
         acceptedApplicants,
         shortlistedApplicants,
+        updateCompanyProfile,
+        updateStudentProfile,
+        savedApplications,
+        setSavedApplications,
       }}
     >
       {children}

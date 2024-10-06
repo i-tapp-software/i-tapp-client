@@ -2,61 +2,27 @@
 
 import Link from "next/link";
 import { ProfileAdd, ArrowRight } from "iconsax-react";
-
 import { OverviewBox } from "@/components/overview-box";
 import { ApplicantCard } from "../../../../../../../components/applicant-card";
-
 import { useGlobal } from "@/context/GlobalContext";
-import { useEffect } from "react";
-import { fetchAllCompanyApplications } from "@/api/actions/auth";
-import { useFetch } from "@/lib/hooks/use-fetch";
 
 export function Dashboard() {
-  const {
-    totalApplicants,
-    acceptedApplicants,
-    shortlistedApplicants,
-    setTotalApplicants,
-    setAcceptedApplicants,
-    setShortlistedApplicants,
-  } = useGlobal();
+  const { totalApplicants, acceptedApplicants, shortlistedApplicants } =
+    useGlobal();
 
   type Applicant = {
     id: string;
     name: string;
     university: string;
-    student: { firstName: string; lastName: string; school: string };
+    student: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      school: string;
+    };
     accepted: boolean;
     createdAt: string;
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchAllCompanyApplications();
-        const total = response?.data.totalApplicants;
-        setTotalApplicants(total);
-        const accepted = response?.data.acceptedApplicants;
-        setAcceptedApplicants(response?.data.acceptedApplicants);
-        const shortlisted = response?.data.shortListedApplicants;
-        setShortlistedApplicants(shortlisted);
-
-        console.log({
-          total,
-          accepted,
-          shortlisted,
-        });
-
-        console.log({
-          acceptedApplicantsCount: acceptedApplicants,
-        });
-      } catch (error) {
-        console.error("Failed to fetch applications:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const company = JSON.parse(localStorage.getItem("company") || "{}");
 

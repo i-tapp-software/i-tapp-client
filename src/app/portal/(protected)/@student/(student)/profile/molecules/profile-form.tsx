@@ -20,11 +20,11 @@
 //   email: z.string().email("Invalid email address"),
 //   phone: z.string().min(1, "Phone number is required"),
 //   bio: z.string(),
-//   profilePicture: z
+//   profileImage: z
 //     .instanceof(File)
 //     .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
 //     .optional(),
-//   itRequestLetter: z
+//   documents: z
 //     .instanceof(File)
 //     .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
 //     .optional(),
@@ -33,8 +33,8 @@
 // type ProfileFormData = z.infer<typeof profileSchema>;
 
 // export default function ProfileForm() {
-//   const [profilePicture, setProfilePicture] = (useState < File) | (null > null);
-//   const [itRequestLetter, setItRequestLetter] =
+//   const [profileImage, setProfileImage] = (useState < File) | (null > null);
+//   const [documents, setDocuments] =
 //     (useState < File) | (null > null);
 
 //   const {
@@ -97,9 +97,9 @@
 //           <div className="mb-8">
 //             <h2 className="text-lg font-semibold mb-2">Your Profile Picture</h2>
 //             <div className="w-40 h-40 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center mx-auto">
-//               {profilePicture ? (
+//               {profileImage ? (
 //                 <img
-//                   src={URL.createObjectURL(profilePicture)}
+//                   src={URL.createObjectURL(profileImage)}
 //                   alt="Profile"
 //                   className="w-full h-full object-cover"
 //                 />
@@ -113,12 +113,12 @@
 //             <Input
 //               type="file"
 //               accept="image/*"
-//               onChange={(e) => handleFileChange(e, setProfilePicture)}
+//               onChange={(e) => handleFileChange(e, setProfileImage)}
 //               className="mt-2"
 //             />
-//             {errors.profilePicture && (
+//             {errors.profileImage && (
 //               <p className="text-red-500 text-sm mt-1">
-//                 {errors.profilePicture.message}
+//                 {errors.profileImage.message}
 //               </p>
 //             )}
 //           </div>
@@ -165,8 +165,8 @@
 //                 Upload IT request letter
 //               </h3>
 //               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-//                 {itRequestLetter ? (
-//                   <p>{itRequestLetter.name}</p>
+//                 {documents ? (
+//                   <p>{documents.name}</p>
 //                 ) : (
 //                   <>
 //                     <Upload className="mx-auto mb-2" size={24} />
@@ -183,12 +183,12 @@
 //               <Input
 //                 type="file"
 //                 accept=".pdf,.doc,.docx"
-//                 onChange={(e) => handleFileChange(e, setItRequestLetter)}
+//                 onChange={(e) => handleFileChange(e, setDocuments)}
 //                 className="mt-2"
 //               />
-//               {errors.itRequestLetter && (
+//               {errors.documents && (
 //                 <p className="text-red-500 text-sm mt-1">
-//                   {errors.itRequestLetter.message}
+//                   {errors.documents.message}
 //                 </p>
 //               )}
 //             </div>
@@ -231,11 +231,11 @@
 //   email: z.string().email("Invalid email address"),
 //   phone: z.string().min(1, "Phone number is required"),
 //   bio: z.string(),
-//   profilePicture: z
+//   profileImage: z
 //     .instanceof(File)
 //     .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
 //     .optional(),
-//   itRequestLetter: z
+//   documents: z
 //     .instanceof(File)
 //     .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
 //     .optional(),
@@ -244,8 +244,8 @@
 // type ProfileFormData = z.infer<typeof profileSchema>;
 
 // export default function ProfileForm() {
-//   const [profilePicture, setProfilePicture] = useState<File | null>(null);
-//   const [itRequestLetter, setItRequestLetter] = useState<File | null>(null);
+//   const [profileImage, setProfileImage] = useState<File | null>(null);
+//   const [documents, setDocuments] = useState<File | null>(null);
 
 //   const {
 //     register,
@@ -306,9 +306,9 @@
 //           <div className="mb-8">
 //             <h2 className="text-lg font-semibold mb-2">Your Profile Picture</h2>
 //             <div className="w-40 h-40 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center mx-auto">
-//               {profilePicture ? (
+//               {profileImage ? (
 //                 <img
-//                   src={URL.createObjectURL(profilePicture)}
+//                   src={URL.createObjectURL(profileImage)}
 //                   alt="Profile"
 //                   className="w-full h-full object-cover"
 //                 />
@@ -322,12 +322,12 @@
 //             <Input
 //               type="file"
 //               accept="image/*"
-//               onChange={(e) => handleFileChange(e, setProfilePicture)}
+//               onChange={(e) => handleFileChange(e, setProfileImage)}
 //               className="mt-2"
 //             />
-//             {errors.profilePicture && (
+//             {errors.profileImage && (
 //               <p className="text-red-500 text-sm mt-1">
-//                 {errors.profilePicture.message}
+//                 {errors.profileImage.message}
 //               </p>
 //             )}
 //           </div>
@@ -399,8 +399,8 @@
 //                 Upload IT request letter
 //               </h3>
 //               <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-//                 {itRequestLetter ? (
-//                   <p>{itRequestLetter.name}</p>
+//                 {documents ? (
+//                   <p>{documents.name}</p>
 //                 ) : (
 //                   <>
 //                     <Upload className="mx-auto mb-2" size={24} />
@@ -417,12 +417,12 @@
 //               <Input
 //                 type="file"
 //                 accept=".pdf,.doc,.docx"
-//                 onChange={(e) => handleFileChange(e, setItRequestLetter)}
+//                 onChange={(e) => handleFileChange(e, setDocuments)}
 //                 className="mt-2"
 //               />
-//               {errors.itRequestLetter && (
+//               {errors.documents && (
 //                 <p className="text-red-500 text-sm mt-1">
-//                   {errors.itRequestLetter.message}
+//                   {errors.documents.message}
 //                 </p>
 //               )}
 //             </div>
@@ -445,6 +445,7 @@
 "use client";
 
 import React, { useState } from "react";
+// Other imports
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -455,10 +456,14 @@ import { Wrapper } from "@/components/wrapper";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useGlobal } from "@/context/GlobalContext";
 // import { toast } from "@/components/ui/use-toast";
+
+// Rest of your code
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
+// Form schema
 const profileSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
@@ -469,11 +474,11 @@ const profileSchema = z.object({
     .string()
     .min(8, "Password must be at least 8 characters")
     .optional(),
-  profilePicture: z
+  profileImage: z
     .instanceof(File)
     .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
     .optional(),
-  itRequestLetter: z
+  documents: z
     .instanceof(File)
     .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
     .optional(),
@@ -482,8 +487,10 @@ const profileSchema = z.object({
 type ProfileFormData = z.infer<typeof profileSchema>;
 
 export default function ProfileForm() {
-  const [profilePicture, setProfilePicture] = useState<File | null>(null);
-  const [itRequestLetter, setItRequestLetter] = useState<File | null>(null);
+  const { updateStudentProfile } = useGlobal();
+
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [documents, setDocuments] = useState<File | null>(null);
 
   const {
     register,
@@ -494,23 +501,26 @@ export default function ProfileForm() {
     resolver: zodResolver(profileSchema),
   });
 
-  const { execute: updateProfileAction, status } = useAction(updateProfile, {
-    onSuccess(data) {
-      console.log("Profile updated successfully!", data);
-      // toast({
-      //   title: "Success",
-      //   description: data.message,
-      // });
-    },
-    onError(error) {
-      console.error("Failed to update profile", error);
-      // toast({
-      //   title: "Error",
-      //   description: "Failed to update profile. Please try again.",
-      //   variant: "destructive",
-      // });
-    },
-  });
+  const { execute: updateProfileAction, status } = useAction(
+    updateStudentProfile,
+    {
+      onSuccess(data) {
+        console.log("Profile updated successfully!", data);
+        // toast({
+        //   title: "Success",
+        //   description: data.message,
+        // });
+      },
+      onError(error) {
+        console.error("Failed to update profile", error);
+        // toast({
+        //   title: "Error",
+        //   description: "Failed to update profile. Please try again.",
+        //   variant: "destructive",
+        // });
+      },
+    }
+  );
 
   const onSubmit = (data: ProfileFormData) => {
     updateProfileAction(data);
@@ -526,41 +536,50 @@ export default function ProfileForm() {
   };
 
   return (
-    <Wrapper className="touch:pr-[400px]">
-      <div className="max-w-5xl mx-auto p-8 bg-white rounded-lg shadow-md">
+    <>
+      <div className="mb-8"></div>
+      <div className="max-w-5xl mx-auto mt-8 p-8 bg-white rounded-lg shadow-md">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold mb-2">Your Profile Picture</h2>
-            <div className="w-40 h-40 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center mx-auto">
-              {profilePicture ? (
-                <img
-                  src={URL.createObjectURL(profilePicture)}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
+          <div className="flex items-center mb-8">
+            <label className="flex flex-col items-center cursor-pointer">
+              <div className="w-[80px] h-[70px] border-2 border-dashed border-gray-300 rounded-lg p-2 text-center flex flex-col justify-center">
+                {profileImage ? (
+                  <img
+                    src={URL.createObjectURL(profileImage)}
+                    alt="Profile"
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center h-full">
+                    <Upload className="mx-auto mb-1" size={16} />
+                    <p className="text-xs">Photo</p>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileChange(e, setProfileImage)}
+                  className="hidden"
                 />
-              ) : (
-                <>
-                  <Upload className="mx-auto mb-2" size={48} />
-                  <p>Upload your photo</p>
-                </>
-              )}
-            </div>
-            <Input
-              type="file"
-              accept="image/*"
-              onChange={(e) => handleFileChange(e, setProfilePicture)}
-              className="mt-2"
-            />
-            {errors.profilePicture && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.profilePicture.message}
+              </div>
+            </label>
+            {errors.profileImage && (
+              <p className="text-red-500 text-sm mt-1 ml-4">
+                {errors.profileImage.message}
               </p>
             )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
+              <label
+                htmlFor="firstName"
+                className="block text-sm font-medium text-gray-700"
+              >
+                First Name
+              </label>
               <Input
+                id="firstName"
                 {...register("firstName")}
                 placeholder="Enter your first name"
               />
@@ -571,7 +590,14 @@ export default function ProfileForm() {
               )}
             </div>
             <div>
+              <label
+                htmlFor="lastName"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Last Name
+              </label>
               <Input
+                id="lastName"
                 {...register("lastName")}
                 placeholder="Enter your last name"
               />
@@ -582,7 +608,14 @@ export default function ProfileForm() {
               )}
             </div>
             <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
               <Input
+                id="email"
                 {...register("email")}
                 type="email"
                 placeholder="Enter your email address"
@@ -594,7 +627,14 @@ export default function ProfileForm() {
               )}
             </div>
             <div>
+              <label
+                htmlFor="phoneNumber"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Phone Number
+              </label>
               <Input
+                id="phoneNumber"
                 {...register("phoneNumber")}
                 type="tel"
                 placeholder="Enter your phone number"
@@ -609,7 +649,14 @@ export default function ProfileForm() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
+              <label
+                htmlFor="bio"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Bio
+              </label>
               <Textarea
+                id="bio"
                 {...register("bio")}
                 placeholder="Tell us something about you, your goals etc."
                 rows={5}
@@ -621,36 +668,33 @@ export default function ProfileForm() {
               )}
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-700 mb-2">
-                Upload IT request letter
-              </h3>
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                {itRequestLetter ? (
-                  <p>{itRequestLetter.name}</p>
-                ) : (
-                  <>
-                    <Upload className="mx-auto mb-2" size={24} />
-                    <p className="text-sm text-gray-500 mb-2">
-                      Drag 'n Drop here
-                    </p>
-                    <p className="text-sm text-gray-500 mb-2">Or</p>
-                    <Button variant="link" className="text-blue-500 underline">
-                      Browse
-                    </Button>
-                  </>
+              <div className="border-2 border-gray-300 rounded-lg p-4">
+                <h3 className="text-sm font-medium text-gray-700 mb-2">
+                  Upload IT request letter
+                </h3>
+                <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 my-5 border-dashed rounded-md cursor-pointer p-4">
+                  {documents ? (
+                    <p>{documents.name}</p>
+                  ) : (
+                    <>
+                      <Upload className="mx-auto mb-2" size={24} />
+                      <p className="text-sm text-gray-500 mb-2">Upload</p>
+                    </>
+                  )}
+                  <input
+                    type="file"
+                    accept=".jpg,.jpeg,.png,.pdf"
+                    onChange={(e) => handleFileChange(e, setDocuments)}
+                    className="hidden"
+                  />
+                </label>
+
+                {errors.documents && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.documents.message}
+                  </p>
                 )}
               </div>
-              <Input
-                type="file"
-                accept=".pdf,.doc,.docx"
-                onChange={(e) => handleFileChange(e, setItRequestLetter)}
-                className="mt-2"
-              />
-              {errors.itRequestLetter && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.itRequestLetter.message}
-                </p>
-              )}
             </div>
           </div>
 
@@ -664,6 +708,6 @@ export default function ProfileForm() {
           </div>
         </form>
       </div>
-    </Wrapper>
+    </>
   );
 }

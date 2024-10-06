@@ -3,12 +3,16 @@
 import Link from "next/link";
 import { AddCircle, Element, Profile2User, BoxAdd } from "iconsax-react";
 import { usePathname } from "next/navigation";
-import { fetchCompanyJobs } from "@/api/actions/auth";
 import { useGlobal } from "@/context/GlobalContext";
-
-import { useEffect } from "react";
-
 import { cn } from "@/lib/utils/tw";
+
+type Job = {
+  id: string;
+  title: string;
+  company: string;
+  location: string;
+  date: Date;
+};
 
 const sideNavLinks: {
   [key: string]: {
@@ -46,22 +50,9 @@ const sideNavLinks: {
 };
 
 export function Nav() {
-  const { companyJobs, setCompanyJobs } = useGlobal();
+  const { companyJobs } = useGlobal();
   const pathname = usePathname();
   const parentRoute = pathname.split("/")[2];
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetchCompanyJobs();
-        setCompanyJobs(response?.data);
-      } catch (error) {
-        console.error("Failed to fetch company jobs:", error);
-      }
-    };
-
-    fetchData();
-  }, [setCompanyJobs]);
 
   return (
     <div className="hidden lg:flex">
@@ -87,7 +78,7 @@ export function Nav() {
               {companyJobs?.length ? (
                 <>
                   {/* Render each job as an "Edit Space" link */}
-                  {companyJobs.map((job, index) => (
+                  {companyJobs.map((job: Job, index: number) => (
                     <li
                       key={index}
                       className={cn(

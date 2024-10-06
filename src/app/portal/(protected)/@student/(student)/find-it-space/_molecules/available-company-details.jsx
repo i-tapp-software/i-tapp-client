@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight2 } from "iconsax-react";
 import { useAction } from "next-safe-action/hooks";
 import { apply, save } from "@/api/actions/auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AvailableCompanyDetails({
   details,
@@ -15,7 +17,7 @@ export default function AvailableCompanyDetails({
   const {
     id, // Extracted id from details
     companyLogo,
-    name,
+    title,
     description,
     duration,
     industry,
@@ -33,16 +35,15 @@ export default function AvailableCompanyDetails({
   } = useAction(apply, {
     onSuccess(data) {
       console.log("Application successful!", data);
-      alert("Application submitted successfully!");
+      toast.success("Application submitted successfully!");
     },
     onError(error) {
       console.error("Application failed", error);
+      toast.error("Failed to apply. Please try again.");
     },
   });
 
   const handleApply = () => {
-    // Call the apply action with the company ID
-
     const applicationData = {
       id: id,
     };
@@ -52,28 +53,19 @@ export default function AvailableCompanyDetails({
   const { execute: saveAction } = useAction(save, {
     onSuccess(data) {
       console.log("Job saved successfully!", data);
-      // toast({
-      //   title: "Success",
-      //   description: "Job saved successfully!",
-      // });
-      // setIsSaving(false);
+      toast.success("Job saved successfully!");
     },
     onError(error) {
       console.error("Failed to save job", error);
-      // toast({
-      //   title: "Error",
-      //   description: "Failed to save job. Please try again.",
-      //   variant: "destructive",
-      // });
-      // setIsSaving(false);
+      toast.error("Failed to save job. Please try again.");
     },
   });
 
   const handleSave = () => {
     const savedData = {
-      companyId: id,
+      id: id,
     };
-    save(savedData);
+    saveAction(savedData);
   };
 
   return (
@@ -105,7 +97,7 @@ export default function AvailableCompanyDetails({
           </div>
 
           <div>
-            <h6 className="text-h6">{name}</h6>
+            <h6 className="text-h6">{title}</h6>
             <p className="text-primary mt-2">{location}</p>
           </div>
           <p className="text-sm text-[#5374E7] bg-opacity-10 bg-[#5374E7] px-3.5 py-2 rounded-[50px] inline-block w-36">
@@ -145,6 +137,7 @@ export default function AvailableCompanyDetails({
       {hasErrored && (
         <p className="text-red-500">Application failed. Please try again.</p>
       )}
+      <ToastContainer />
     </div>
   );
 }
