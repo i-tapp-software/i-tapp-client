@@ -14,6 +14,7 @@ import {
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
 import { useGlobal } from "@/context/GlobalContext";
+import { NextApiResponse, NextApiRequest } from "next";
 
 // export const signin = actionClient
 //   .metadata({ actionName: "signin" })
@@ -351,55 +352,21 @@ export const updateProfile = actionClient
 //     };
 //   });
 
-const add = 
+// Define a schema for file uploads
 
-
-
-
+// Update the company profile schema to include file fields
 
 export const updateCompanyProfile = actionClient
   .metadata({ actionName: "updateCompanyProfile" })
-  .action(
-    async ({
-      parsedInput: {
-        phone,
-        companyWebsite,
-        address,
-        description,
-        studentCapacity,
-      },
-    }) => {
-      try {
-        // Here you would typically make an API call to update the profile
-        // For this example, we'll just log the data and return a success message
-        console.log("Updating company profile with:", {
-          phone,
-          companyWebsite,
-          address,
-          description,
-          studentCapacity,
-        });
-
-        // Simulating an API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        return {
-          success: true,
-          message: "Company profile updated successfully.",
-          data: {
-            phone,
-            companyWebsite,
-            address,
-            description,
-            studentCapacity,
-          },
-        };
-      } catch (error) {
-        console.error("Error updating company profile:", error);
-        return {
-          success: false,
-          message: "Failed to update company profile. Please try again.",
-        };
-      }
+  .action(async (req: NextApiRequest, res: NextApiResponse) => {
+    const phone = req.formData();
+    try {
+      console.log("Updating company profile with:", phone);
+    } catch (error) {
+      console.error("Error updating company profile:", error);
+      return {
+        success: false,
+        message: "Failed to update company profile. Please try again.",
+      };
     }
-  );
+  });
