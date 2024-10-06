@@ -7,7 +7,8 @@ import { useGlobal } from "@/context/GlobalContext";
 // import { student } from "@/config/student";
 
 const StudentLayout = ({ children }) => {
-  const { savedApplications, setSavedApplications } = useGlobal();
+  const { savedApplications, setSavedApplications, loading, setLoading } =
+    useGlobal();
   useEffect(() => {
     const getApplications = async () => {
       try {
@@ -22,8 +23,6 @@ const StudentLayout = ({ children }) => {
         // setCompanies(uniqueCompanies);
       } catch (err) {
         console.error("Error fetching applications:", err);
-      } finally {
-        setLoading(false);
       }
     };
 
