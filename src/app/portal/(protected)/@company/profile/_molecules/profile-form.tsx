@@ -65,10 +65,7 @@ export default function ProfileForm() {
       formData.append("bannerImage", bannerImage);
     }
 
-    for (let [key, value] of formData.entries()) {
-      console.log(key, value);
-    }
-    updateProfileAction(formData as unknown as ProfileFormData);
+    updateProfileAction(formData);
   };
 
   const handleFileChange = (

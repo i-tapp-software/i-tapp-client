@@ -15,7 +15,7 @@ export default function PortalLayout({
   student,
   userRole = "company",
 }: PortalLayoutProps) {
-  const headerList = headers();
+  // const headerList = headers();
 
   // const userRole =
   //   (headerList.get("x-user-role")?.toLowerCase() as UserRole) || "company";

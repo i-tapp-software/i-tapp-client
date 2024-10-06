@@ -13,8 +13,10 @@ import {
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
-import { useGlobal } from "@/context/GlobalContext";
-import { NextApiResponse, NextApiRequest } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
+import fs from "fs/promises";
+
+import formidable from "formidable";
 
 // export const signin = actionClient
 //   .metadata({ actionName: "signin" })
@@ -356,17 +358,49 @@ export const updateProfile = actionClient
 
 // Update the company profile schema to include file fields
 
+async function parseFormData(req: NextApiRequest) {
+  const form = new formidable.IncomingForm();
+
+  return new Promise((resolve, reject) => {
+    form.parse(req, (err, fields, files) => {
+      if (err) reject(err);
+      resolve({ fields, files });
+    });
+  });
+}
+
 export const updateCompanyProfile = actionClient
   .metadata({ actionName: "updateCompanyProfile" })
-  .action(async (req: NextApiRequest, res: NextApiResponse) => {
-    const phone = req.formData();
-    try {
-      console.log("Updating company profile with:", phone);
-    } catch (error) {
-      console.error("Error updating company profile:", error);
-      return {
-        success: false,
-        message: "Failed to update company profile. Please try again.",
-      };
+  .action(
+    async (formData: FormData, req: NextApiRequest, res: NextApiResponse) => {
+      try {
+        const parsedData = await parseFormData(req);
+
+        const { fields, files } = parsedData as {
+          fields: formidable.Fields;
+          files: formidable.Files;
+        };
+
+        // Handle file uploads
+        // Handle file uploads
+
+        const { phone } = fields;
+
+        // Perform your update logic here
+        console.log("Updating company profile with:", {
+          phone,
+        });
+
+        return {
+          success: true,
+          message: "Company profile updated successfully.",
+        };
+      } catch (error) {
+        console.error("Error updating company profile:", error);
+        return {
+          success: false,
+          message: "Failed to update company profile. Please try again.",
+        };
+      }
     }
-  });
+  );
