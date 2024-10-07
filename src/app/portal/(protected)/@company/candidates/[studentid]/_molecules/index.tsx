@@ -45,6 +45,14 @@ export function CandidateProfile() {
     }
   );
 
+  const handlAccept = () => {
+    const payload = {
+      id: student.id,
+    };
+
+    acceptAction();
+  };
+
   // const {
   //   execute: bookmarkAction,
   //   isExecuting: isBookmarking,
@@ -58,7 +66,6 @@ export function CandidateProfile() {
   //   },
   // });
 
-  console.log(selectedApplicant);
   return (
     <div>
       <div className="flex gap-6 justify-between flex-wrap">
@@ -80,7 +87,7 @@ export function CandidateProfile() {
         </div>
         <div className="flex gap-3 self-center">
           <Button
-            onClick={() => acceptAction({ studentId: student.id })}
+            onClick={handlAccept}
             size="sm"
             disabled={isAccepting}
             className=" bg-[#27AE60] px-6 py-3 "

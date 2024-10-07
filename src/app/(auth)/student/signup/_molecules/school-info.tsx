@@ -29,7 +29,7 @@ export function SchoolInfo({
 }: {
   formIndex: number;
   setForm: Dispatch<SetStateAction<number>>;
-  setStudentData: Dispatch<SetStateAction<>>;
+  setStudentData: Dispatch<SetStateAction<any>>;
 }) {
   const {
     register,

@@ -203,19 +203,19 @@ export function CompanyInfo2({ formData }: CompanyInfo2Props) {
 
   const { execute, hasErrored, result, isExecuting } = useAction(studentSignup);
 
-  const onSubmit = form.handleSubmit((data) => {
-    execute({
-      email: formData.email,
-      password: data.rc_number,
-      confirmPassword: data.rc_number,
-      // Remove rc_number, year_founded, student_capacity, and it_duration from here
-      // if they're not expected by the studentSignup action
-    });
-  });
+  // const onSubmit = form.handleSubmit((data) => {
+  //   execute({
+  //     // email: formData.email,
+  //     // password: data.rc_number,
+  //     // confirmPassword: data.rc_number,
+  //     // Remove rc_number, year_founded, student_capacity, and it_duration from here
+  //     // if they're not expected by the studentSignup action
+  //   });
+  // });
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-3" onSubmit={onSubmit}>
+      <form className="flex flex-col gap-3">
         {hasErrored && (
           <span className="text-danger font-semi-bold">
             {result.serverError?.message}

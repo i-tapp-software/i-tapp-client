@@ -18,6 +18,11 @@ import { Dispatch, SetStateAction } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+type Login = {
+  email: string;
+  password: string;
+};
+
 export function SignupInfo({
   formIndex,
   setForm,
@@ -56,7 +61,7 @@ export function SignupInfo({
     },
   });
 
-  const handleSignup = (data) => {
+  const handleSignup = (data: Login) => {
     const old = studentData.data.data;
     const payLoad = { ...old, ...data };
 
