@@ -40,7 +40,7 @@ export function CandidateProfile() {
         alert("Application has been declined.");
       },
       onError: () => {
-        alert("Error declining application.");
+        alert("Error declining appliation.");
       },
     }
   );
@@ -49,8 +49,7 @@ export function CandidateProfile() {
     const payload = {
       id: student.id,
     };
-
-    acceptAction();
+    acceptAction(payload);
   };
 
   // const {
