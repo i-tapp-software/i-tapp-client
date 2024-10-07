@@ -15,11 +15,8 @@ const StudentLayout = ({ children }) => {
         const response = await fetchSavedApplication(); // Replace with your actual fetch function
         const fetchedData = response?.data;
 
-        const fetchedStudents = fetchedData.student || [];
+        const fetchedStudents = fetchedData || [];
         setSavedApplications(fetchedStudents);
-
-        console.log("Unique Companies:", fetchedStudents);
-
         // setCompanies(uniqueCompanies);
       } catch (err) {
         console.error("Error fetching applications:", err);
@@ -28,6 +25,7 @@ const StudentLayout = ({ children }) => {
 
     getApplications(); // Call the async function
   }, []);
+
   return (
     <>
       <Header />

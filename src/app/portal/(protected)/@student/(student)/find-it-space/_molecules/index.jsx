@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import FilterCompanies from "./filter";
 import { Wrapper } from "@/components/wrapper";
 import Results from "./results";
-import company from "@/data/company.js";
 import { filters } from "@/config/student";
 import { Filter } from "iconsax-react";
 import AvailableCompanyDetails from "./available-company-details";

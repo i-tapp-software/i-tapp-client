@@ -13,12 +13,13 @@ type Applicant = {
 };
 
 export function ShortlistedApplicants() {
-  const { selectedApplicant, setSelectedApplicant, shortlistedApplicants } =
-    useGlobal();
+  const { shortlistedApplicants } = useGlobal();
   const applicants: {}[] = Array.from({ length: 10 });
 
-  const { applications, setCurrentPage, postPerPage, currentPage, paginate } =
-    usePaginator(6, applicants);
+  const { setCurrentPage, postPerPage, currentPage, paginate } = usePaginator(
+    6,
+    applicants
+  );
 
   return (
     <div>

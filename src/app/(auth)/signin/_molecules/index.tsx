@@ -19,7 +19,6 @@ import {
 import { signinSchema } from "@/lib/validations/auth";
 import { ButtonWithLoader } from "@/components/button-with-loader";
 import { signin } from "@/api/actions/auth";
-import { saveToken } from "@/lib/auth";
 
 export function CompanySignIn() {
   const router = useRouter();
@@ -59,7 +58,7 @@ export function CompanySignIn() {
         <h1 className="text-2xl font-bold ">Login to your account</h1>
         <p className="text-sm text-center">
           Welcome back. <br /> Dont have an account yet?
-          <Link href="/company/signup" className="text-primary mx-1">
+          <Link href="/student/signup" className="text-primary mx-1">
             Sign up
           </Link>
         </p>

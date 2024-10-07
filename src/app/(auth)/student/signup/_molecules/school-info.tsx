@@ -11,7 +11,6 @@ import {
 import { FormField } from "@/components/ui/form-field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { InputDescription } from "@/components/ui/input-description";
 
 import db from "../../../../../../db.json";
@@ -20,6 +19,8 @@ import { useAction } from "next-safe-action/hooks";
 import { verifyStudentIdentity } from "@/api/actions/auth";
 import { Dispatch, SetStateAction } from "react";
 import { ButtonWithLoader } from "@/components/button-with-loader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function SchoolInfo({
   formIndex,
@@ -28,7 +29,7 @@ export function SchoolInfo({
 }: {
   formIndex: number;
   setForm: Dispatch<SetStateAction<number>>;
-  setStudentData: Dispatch<SetStateAction<any>>;
+  setStudentData: Dispatch<SetStateAction<>>;
 }) {
   const {
     register,
@@ -48,9 +49,15 @@ export function SchoolInfo({
     verifyStudentIdentity,
     {
       onSuccess: (data) => {
-        // alert("Student identity verified!");
-        setStudentData(data);
-        setForm(++formIndex);
+        toast.success("Student info verified!");
+        setTimeout(() => {
+          setStudentData(data);
+          setForm(++formIndex);
+        }, 1000);
+      },
+      onError(error) {
+        toast.error("Student data not found");
+        console.log(error);
       },
     }
   );
@@ -118,6 +125,7 @@ export function SchoolInfo({
           </ButtonWithLoader>
         </div>
       </div>
+      <ToastContainer />
     </form>
   );
 }

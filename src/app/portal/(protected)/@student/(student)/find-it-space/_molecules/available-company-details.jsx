@@ -9,11 +9,7 @@ import { apply, save } from "@/api/actions/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function AvailableCompanyDetails({
-  details,
-  setCompanyId,
-  setShowModal,
-}) {
+export default function AvailableCompanyDetails({ details, setCompanyId }) {
   const {
     id, // Extracted id from details
     companyLogo,
@@ -24,7 +20,6 @@ export default function AvailableCompanyDetails({
     createdDate,
     totalApplicants,
     location,
-    address,
   } = details;
 
   // Get the apply action hook
@@ -35,7 +30,8 @@ export default function AvailableCompanyDetails({
   } = useAction(apply, {
     onSuccess(data) {
       console.log("Application successful!", data);
-      toast.success("Application submitted successfully!");
+      const { message } = data.data;
+      toast.success(message);
     },
     onError(error) {
       console.error("Application failed", error);
@@ -45,15 +41,17 @@ export default function AvailableCompanyDetails({
 
   const handleApply = () => {
     const applicationData = {
-      id: id,
+      jobId: id,
     };
+    console.log(applicationData);
     applyAction({ applicationData });
   };
 
   const { execute: saveAction } = useAction(save, {
     onSuccess(data) {
       console.log("Job saved successfully!", data);
-      toast.success("Job saved successfully!");
+      const { message } = data.data;
+      toast.success(message);
     },
     onError(error) {
       console.error("Failed to save job", error);
@@ -63,9 +61,10 @@ export default function AvailableCompanyDetails({
 
   const handleSave = () => {
     const savedData = {
-      id: id,
+      jobId: id,
     };
-    saveAction(savedData);
+    console.log(savedData);
+    saveAction({ savedData });
   };
 
   return (

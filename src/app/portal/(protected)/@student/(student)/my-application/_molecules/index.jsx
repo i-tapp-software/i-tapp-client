@@ -5,15 +5,14 @@ import ApplicationTable from "./application-table";
 import { Wrapper } from "@/components/wrapper";
 import ApplicationSearch from "./application-search";
 import { SitePagination } from "@/components/ui/site-pagination";
-import studentApplications from "@/data/company";
 import { fetchApplication } from "@/api/actions/auth";
 import usePaginator from "@/lib/hooks/use-paginator";
 
 export default function MyApplication({ searchParams }) {
   const [application, setApplication] = useState([]);
-  const [jobs, setJobs] = useState([]);
-  const [company, setCompany] = useState([]);
-  const [loading, setLoading] = useState(true); // For loading state
+
+  // const [company, setCompany] = useState([]);
+  // const [loading, setLoading] = useState(true); // For loading state
   useEffect(() => {
     const getApplications = async () => {
       try {
@@ -28,8 +27,6 @@ export default function MyApplication({ searchParams }) {
         // setCompanies(uniqueCompanies);
       } catch (err) {
         console.error("Error fetching applications:", err);
-      } finally {
-        setLoading(false);
       }
     };
 

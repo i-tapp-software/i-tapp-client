@@ -1,7 +1,6 @@
 import React from "react";
 import somPng from "@/assets/images/company.png"; // Use this in production
 
-import itappLogo from "@/assets/images/logo.png";
 import Image from "next/image";
 const AboutSpace = () => {
   return (

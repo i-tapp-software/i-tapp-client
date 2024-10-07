@@ -52,13 +52,13 @@ export function StudentOnboardingForm() {
               Log in
             </Link>
           </p>
-          <span className="font-bold">OR</span>
+          {/* <span className="font-bold">OR</span>
           <p className="text-sm">
             Signing up as a company?{" "}
             <Link href="/company/signup" className="text-primary">
               Click here
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
 

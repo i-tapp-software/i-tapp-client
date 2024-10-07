@@ -5,9 +5,6 @@ import { SitePagination } from "@/components/ui/site-pagination";
 import usePaginator from "@/lib/hooks/use-paginator";
 
 import { useGlobal } from "@/context/GlobalContext";
-import { useEffect } from "react";
-import { fetchAllCompanyApplications } from "@/api/actions/auth";
-import { useFetch } from "@/lib/hooks/use-fetch";
 
 export function Applicants() {
   const { company, totalApplicants } = useGlobal();
@@ -21,8 +18,10 @@ export function Applicants() {
     student: { firstName: string; lastName: string; school: string };
   };
 
-  const { applications, setCurrentPage, postPerPage, currentPage, paginate } =
-    usePaginator(6, applicants);
+  const { setCurrentPage, postPerPage, currentPage, paginate } = usePaginator(
+    6,
+    applicants
+  );
 
   return (
     <div>

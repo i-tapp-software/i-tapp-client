@@ -11,11 +11,7 @@ import {
 import { useGlobal } from "@/context/GlobalContext";
 
 import { Button } from "@/components/ui/button";
-import {
-  acceptApplication,
-  declineApplication,
-  bookmarkApplication,
-} from "@/api/actions/auth";
+import { acceptApplication, declineApplication } from "@/api/actions/auth";
 import { useAction } from "next-safe-action/hooks";
 
 export function CandidateProfile() {
@@ -25,44 +21,42 @@ export function CandidateProfile() {
 
   const name = student?.firstName + " " + student?.lastName;
 
-  const {
-    execute: acceptAction,
-    isExecuting: isAccepting,
-    hasErrored: hasAcceptError,
-  } = useAction(acceptApplication, {
-    onSuccess: (data) => {
-      console.log("Application has been accepted.");
-    },
-    onError: (error) => {
-      console.error("Error accepting application:", error);
-    },
-  });
+  const { execute: acceptAction, isExecuting: isAccepting } = useAction(
+    acceptApplication,
+    {
+      onSuccess: () => {
+        console.log("Application has been accepted.");
+      },
+      onError: (error) => {
+        console.error("Error accepting application:", error);
+      },
+    }
+  );
 
-  const {
-    execute: declineAction,
-    isExecuting: isDeclining,
-    hasErrored: hasDeclineError,
-  } = useAction(declineApplication, {
-    onSuccess: () => {
-      alert("Application has been declined.");
-    },
-    onError: () => {
-      alert("Error declining application.");
-    },
-  });
+  const { execute: declineAction, isExecuting: isDeclining } = useAction(
+    declineApplication,
+    {
+      onSuccess: () => {
+        alert("Application has been declined.");
+      },
+      onError: () => {
+        alert("Error declining application.");
+      },
+    }
+  );
 
-  const {
-    execute: bookmarkAction,
-    isExecuting: isBookmarking,
-    hasErrored: hasBookmarkError,
-  } = useAction(bookmarkApplication, {
-    onSuccess: () => {
-      alert("Application has been bookmarked.");
-    },
-    onError: () => {
-      alert("Error bookmarking application.");
-    },
-  });
+  // const {
+  //   execute: bookmarkAction,
+  //   isExecuting: isBookmarking,
+  //   hasErrored: hasBookmarkError,
+  // } = useAction(bookmarkApplication, {
+  //   onSuccess: () => {
+  //     alert("Application has been bookmarked.");
+  //   },
+  //   onError: () => {
+  //     alert("Error bookmarking application.");
+  //   },
+  // });
 
   console.log(selectedApplicant);
   return (

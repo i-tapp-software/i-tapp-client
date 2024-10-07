@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Location } from "iconsax-react";
 import { SearchNormal1 } from "iconsax-react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";

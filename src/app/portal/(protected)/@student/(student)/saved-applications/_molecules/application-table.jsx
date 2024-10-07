@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils/tailwind";
 import ApplicationCard from "./application-card";
 
-export default function ApplicationTable({ query,applications }) {
+export default function ApplicationTable({ query, applications }) {
   const myApplication = applications.filter((app) =>
     app.companyName.toLocaleLowerCase().startsWith(query.toLocaleLowerCase())
   );
@@ -36,7 +36,7 @@ export default function ApplicationTable({ query,applications }) {
                 <TableCell>19 Jan 2023</TableCell>
                 <TableCell>{application.location}</TableCell>
                 <TableCell>{application.industry}</TableCell>
-                <TableCell>300</TableCell>
+                <TableCell>{application.numberOfApplicants}</TableCell>
                 <TableCell>
                   <span
                     className={cn(

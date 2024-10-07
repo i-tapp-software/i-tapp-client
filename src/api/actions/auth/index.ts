@@ -5,16 +5,10 @@ import { actionClient } from "@/services/action";
 import {
   verifyStudentIdentitySchema,
   signinSchema,
-  studentSignupSchema,
-  companySignupSchema,
-  fullCompanySignupSchema,
   createSpaceSchema,
-  companyProfileSchema,
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
-import { NextApiRequest, NextApiResponse } from "next";
-import fs from "fs/promises";
 
 // export const signin = actionClient
 //   .metadata({ actionName: "signin" })
@@ -72,37 +66,50 @@ export const signin = actionClient
     return { user, accessToken, role, company };
   });
 
-// export const signin = actionClient
-//   .metadata({ actionName: "signin" })
-//   .schema(signinSchema)
-//   .action(async ({ parsedInput: { email, password } }) => {
-//     const response = await mutate("/auth/login", {
-//       email,
-//       password,
-//     });
-//     console.log(response.data);
+export const studentSignup = actionClient
+  .metadata({ actionName: "studentSignup" })
+  .schema(signinSchema)
+  .action(
+    async ({
+      parsedInput: {
+        email,
+        firstName,
+        lastName,
+        password,
+        matriculation,
+        school,
+      },
+    }) => {
+      console.log(email);
+      try {
+        const response = await mutate("/auth/student/signup", {
+          firstName,
+          lastName,
+          email,
+          password,
+          matriculationNumber: matriculation,
+          school,
+        });
 
-//     return response.data;
-//   });
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+
+        throw error;
+      }
+    }
+  );
 
 export const verifyStudentIdentity = actionClient
   .metadata({ actionName: "verifyStudentIdentity" })
   .schema(verifyStudentIdentitySchema)
-  .action(async ({ parsedInput: { matNo, school } }) => {
+  .action(async ({ parsedInput: { matNo } }) => {
     // return true;
     const response = await mutate("/student/check", {
       matriculation: matNo,
     });
     console.log(response.data);
     return response.data;
-  });
-
-export const studentSignup = actionClient
-  .metadata({ actionName: "studentSignup" })
-  .schema(studentSignupSchema)
-  .action(async ({ parsedInput: { email, password } }) => {
-    // await mutate("/auth/signup", { email, password });
-    await mutate("/auth/signup", { email, password });
   });
 
 // export const companySignup = actionClient
@@ -240,9 +247,9 @@ export const bookmarkApplication = actionClient
 
 export const save = actionClient
   .metadata({ actionName: "save" })
-  .action(async ({ parsedInput: id }) => {
+  .action(async ({ parsedInput: jobId }) => {
     try {
-      const response = await mutate("/student/saved/applications", id);
+      const response = await mutate("/student/saved/applications", jobId);
       console.log("Application Response:", response.data);
       return response.data;
     } catch (error) {
@@ -331,7 +338,9 @@ export const updateProfile = actionClient
   .metadata({ actionName: "updateProfile" })
   .schema(updateProfileSchema)
   .action(
-    async ({ firstName, lastName, email, phoneNumber, bio, password }) => {
+    async ({
+      parsedInput: { firstName, lastName, email, phoneNumber, bio, password },
+    }) => {
       try {
         const response = await mutate("/student/profile", {
           firstName,
@@ -383,7 +392,7 @@ export const updateProfile = actionClient
 
 export const updateCompanyProfile = actionClient
   .metadata({ actionName: "updateCompanyProfile" })
-  .action(async (input) => {
+  .action(async () => {
     try {
       // Perform your update logic here
       console.log("Updating company profile with:", {});

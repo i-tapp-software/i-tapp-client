@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { studentSignup } from "@/api/actions/auth";
 import { Input } from "@/components/ui/input";
 import { ButtonWithLoader } from "@/components/button-with-loader";
@@ -16,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { studentSignupSchema } from "@/lib/validations/auth";
 import { Dispatch, SetStateAction } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function SignupInfo({
   formIndex,
@@ -38,15 +39,31 @@ export function SignupInfo({
 
   const { isDirty, isValid, errors } = form.formState;
 
-  const { execute, hasErrored, result, isExecuting } = useAction(
-    studentSignup,
-    {
-      onSuccess() {
-        setForm(++formIndex);
-        // alert("Sign up successful!");
-      },
-    }
-  );
+  const {
+    execute: signupAction,
+    hasErrored,
+    result,
+    isExecuting,
+  } = useAction(studentSignup, {
+    onSuccess(data) {
+      // setForm(++formIndex);
+      // alert("Sign up successful!");
+    },
+    onError(error) {
+      toast.error(" Error signing up");
+
+      console.log(error);
+    },
+  });
+
+  const handleSignup = (data) => {
+    const old = studentData.data.data;
+    const payLoad = { ...old, ...data };
+
+    console.log(payLoad);
+
+    signupAction(payLoad);
+  };
 
   return (
     <div className="w-full flex flex-col gap-6">
@@ -61,7 +78,7 @@ export function SignupInfo({
           onSubmit={(e) => {
             e.preventDefault();
 
-            execute(form.getValues());
+            handleSignup(form.getValues());
           }}
         >
           <div className="flex flex-col gap-3">
@@ -131,6 +148,7 @@ export function SignupInfo({
           </div>
         </form>
       </Form>
+      <ToastContainer />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use Client";
 
-import { React, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function useWindowWidth() {
   const [windowWidth, setWindowWidth] = useState(0);

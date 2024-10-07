@@ -15,15 +15,13 @@ export default function SavedApplication({ searchParams }) {
   const { applications, setCurrentPage, postPerPage, currentPage, paginate } =
     usePaginator(6, studentApplications);
 
-  console.log(savedApplications);
-
   return (
     <div>
       <Wrapper className=" sm:pb-10">
         <ApplicationSearch />
-        {applications.length !== 0 ? (
+        {savedApplications.length !== 0 ? (
           <>
-            <ApplicationTable query={query} applications={applications} />
+            <ApplicationTable query={query} applications={savedApplications} />
             <SitePagination
               totalPosts={studentApplications.length}
               postsPerPage={postPerPage}

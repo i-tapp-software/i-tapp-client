@@ -698,14 +698,21 @@ export default function ProfileForm() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <Button type="submit" disabled={status === "executing"}>
-              {status === "executing" ? "Updating..." : "Update Profile"}
-            </Button>
-            <Button type="button" variant="ghost" onClick={() => reset()}>
-              Reset
-            </Button>
-          </div>
+
+           <div className="xxs:text-start space-x-2">
+          <Button
+            type="submit"
+            size="sm"
+            disabled={status === "executing"}
+            className="mx-auto"
+          >
+            {status === "executing" ? "Updating..." : "Update Profile"}
+          </Button>
+          <button type="button" className="p-3" onClick={() => reset()}>
+            Reset
+          </button>
+        </div>
+
         </form>
       </div>
     </>

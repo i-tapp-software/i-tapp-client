@@ -1,7 +1,7 @@
 "use client";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { CloseCircle, TickCircle } from "iconsax-react";
+import { TickCircle } from "iconsax-react";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useAction } from "next-safe-action/hooks";
 import { apply } from "@/api/actions/auth";
-import { ButtonWithLoader } from "@/components/button-with-loader";
+// import { ButtonWithLoader } from "@/components/button-with-loader";
 
 const formSchema = z.object({
   firstname: z.string().min(3),
@@ -30,7 +30,7 @@ const formSchema = z.object({
 });
 
 export default function ApplicationForm({ id }) {
-  const [success, setSuccess] = useState(false);
+  const [success] = useState(false);
   const router = useRouter();
 
   const form = useForm({

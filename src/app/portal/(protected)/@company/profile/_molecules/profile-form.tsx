@@ -46,7 +46,7 @@ export default function ProfileForm() {
   );
 
   const onSubmit = (data: ProfileFormData) => {
-    updateCompanyProfile(data);
+    updateProfileAction(data);
   };
 
   const handleFileChange = (
