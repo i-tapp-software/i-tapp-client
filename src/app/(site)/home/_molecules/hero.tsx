@@ -19,7 +19,7 @@ export function Hero() {
           manage applications.
         </p>
         <div>
-          <Link href={app.links.signup} className={buttonVariants()}>
+          <Link href="/get-started" className={buttonVariants()}>
             Get Started
           </Link>
         </div>

@@ -41,8 +41,35 @@ import { cookies } from "next/headers";
 //     }
 //   });
 
-export const signin = actionClient
-  .metadata({ actionName: "signin" })
+export const signinStudent = actionClient
+  .metadata({ actionName: "signinStudent" })
+  .schema(signinSchema)
+  .action(async ({ parsedInput: { email, password } }) => {
+    const response = await mutate("/auth/login", {
+      email,
+      password,
+    });
+
+    console.log(response.data.data);
+
+    const { accessToken, user, company, role } = response.data.data;
+
+    // const { role} = response.data.data
+
+    // Set the token in an HTTP-only cookie
+    cookies().set("token", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 60 * 60 * 24 * 7, // 1 week
+      path: "/",
+    });
+
+    return { user, accessToken, role, company };
+  });
+
+export const signinCompany = actionClient
+  .metadata({ actionName: "signinCompany" })
   .schema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
     const response = await mutate("/company/login", {

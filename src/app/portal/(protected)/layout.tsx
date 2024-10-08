@@ -10,15 +10,10 @@ interface PortalLayoutProps {
   userRole: UserRole;
 }
 
-export default function PortalLayout({
-  company,
-  student,
-  userRole = "company",
-}: PortalLayoutProps) {
-  // const headerList = headers();
+export default function PortalLayout({ company, student }: PortalLayoutProps) {
+  const headerList = headers();
 
-  // const userRole =
-  //   (headerList.get("x-user-role")?.toLowerCase() as UserRole) || "company";
+  const userRole = headerList.get("x-user-role")?.toLowerCase() as UserRole;
 
   return (
     <>
