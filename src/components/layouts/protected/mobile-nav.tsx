@@ -13,8 +13,6 @@ export function MobileNav() {
   const [open, setOpen] = useState<boolean>(false);
 
   const { students } = useGlobal();
-  console.log("Students:", students);
-
   const name = students.firstName + " " + students.lastName;
 
   return (
