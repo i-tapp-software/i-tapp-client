@@ -3,7 +3,21 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const RoleOption = ({ role, icon, label, isSelected, onSelect }) => (
+interface RoleOptionProps {
+  role: string;
+  icon: React.ReactNode;
+  label: string;
+  isSelected: boolean;
+  onSelect: (role: string) => void;
+}
+
+const RoleOption: React.FC<RoleOptionProps> = ({
+  role,
+  icon,
+  label,
+  isSelected,
+  onSelect,
+}) => (
   <div
     className={`p-6 border rounded-lg cursor-pointer transition-all flex flex-col items-center text-center
       ${
@@ -20,13 +34,13 @@ const RoleOption = ({ role, icon, label, isSelected, onSelect }) => (
 
 const RoleSelection = () => {
   const router = useRouter();
-  const [selectedRole, setSelectedRole] = useState("company");
+  const [selectedRole, setSelectedRole] = useState("");
 
-  const handleRoleChange = (role) => {
+  const handleRoleChange = (role: string) => {
     setSelectedRole(role);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (selectedRole === "student") {
       // Redirect to student registration page
@@ -59,6 +73,7 @@ const RoleSelection = () => {
         </div>
         <button
           type="submit"
+          disabled={selectedRole === "" || !selectedRole.length}
           className="w-full bg-[#477DC0] text-white py-2 px-6 rounded-lg hover:bg-[#4f4f4f] transition-colors"
         >
           Apply as a{" "}
@@ -67,7 +82,7 @@ const RoleSelection = () => {
       </form>
       <p className="mt-6 text-gray-600">
         Already have an account?{" "}
-        <a href="/login" className="text-green-600 hover:underline">
+        <a href="/signin" className="text-[#477DC0] hover:underline">
           Log In
         </a>
       </p>

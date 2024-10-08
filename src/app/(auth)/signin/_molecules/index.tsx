@@ -43,26 +43,21 @@ export function CompanySignIn() {
       toast.success("Logged in successfully!");
       const userRole = data?.data?.user?.role;
       const user = data?.data?.user;
-      const companyRole = data?.data?.company?.role;
       const company = data?.data?.company;
       const accessToken = data?.data?.accessToken;
 
       localStorage.setItem("token", accessToken);
       if (userRole === "student") {
         router.push("/portal/find-it-space");
-
         localStorage.setItem("user", JSON.stringify(user));
-        console.log("User:", user);
-      } else if (companyRole === "company") {
+      } else {
         router.push("/portal/overview/dashboard");
         localStorage.setItem("company", JSON.stringify(company));
-        console.log("Company:", company);
-      } else {
-        return toast.error("Failed to log in. Please try again.");
       }
     },
     onError(error) {
       toast.error("Failed to log in. Please try again.");
+      console.error("Failed to log in:", error);
     },
   });
 
@@ -96,12 +91,7 @@ export function CompanySignIn() {
         <h1 className="text-2xl font-bold ">
           {activeTab === "company" ? "Company Login" : "Student Login"}
         </h1>
-        <p className="text-sm text-center">
-          Welcome back. <br /> Don't have an account yet?
-          <Link href={`/${activeTab}/signup`} className="text-primary mx-1">
-            Sign up
-          </Link>
-        </p>
+        <p className="text-sm text-center">Welcome back</p>
       </div>
 
       {hasErrored && (
@@ -163,6 +153,7 @@ export function CompanySignIn() {
         </form>
       </Form>
       <p className="text-sm text-center">
+        Don't have an account yet?
         <Link href={`/${activeTab}/signup`} className="text-primary mx-1">
           Sign up
         </Link>
