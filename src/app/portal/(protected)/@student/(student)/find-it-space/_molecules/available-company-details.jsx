@@ -68,7 +68,8 @@ export default function AvailableCompanyDetails({ details, setCompanyId }) {
   };
 
   return (
-    <div className="w-full rounded-xl md:flex p-8 bg-white mx-6 flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full">
+    <div className="w-full rounded-xl md:flex p-8 bg-white flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full mx-auto">
+      {/* Your content */}
       <div className="flex justify-between border-b">
         <div className="flex flex-col gap-4 pb-6 w-full">
           <div className="flex justify-between gap-2">
