@@ -5,7 +5,7 @@ import React, { useState } from "react";
 const Signup = () => {
   const [selectedRole, setSelectedRole] = useState("freelancer"); // default selected role
 
-  const handleRoleChange = (role) => {
+  const handleRoleChange = (role: string) => {
     setSelectedRole(role);
   };
 
