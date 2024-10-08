@@ -121,7 +121,7 @@ export function CompanySignIn() {
               disabled={!isDirty || !isValid}
               isPending={isExecuting}
             >
-              Sign up
+              Sign In
             </ButtonWithLoader>
           </div>
         </form>

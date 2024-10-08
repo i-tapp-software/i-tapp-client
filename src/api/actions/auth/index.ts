@@ -43,7 +43,7 @@ export const signin = actionClient
   .metadata({ actionName: "signin" })
   .schema(signinSchema)
   .action(async ({ parsedInput: { email, password } }) => {
-    const response = await mutate("/auth/login", {
+    const response = await mutate("/company/login", {
       email,
       password,
     });

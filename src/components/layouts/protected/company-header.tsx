@@ -15,6 +15,7 @@ import { Logo } from "@/components/logo";
 import { Wrapper } from "@/components/wrapper";
 import { MobileNav } from "./mobile-nav";
 import { cn } from "@/lib/utils/tw";
+import { CompanyMobileNav } from "./company-mobile-nav";
 
 export const navLinks: { text: string; href: string }[] = [
   {
@@ -101,7 +102,7 @@ export function CompanyHeader() {
         </div>
 
         {/* Mobile Nav */}
-        <MobileNav />
+        <CompanyMobileNav />
       </Wrapper>
     </header>
   );
