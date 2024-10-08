@@ -13,6 +13,8 @@ export const GlobalProvider = ({ children }) => {
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
   });
 
+  const [students, setStudents] = useState("");
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [totalApplicants, setTotalApplicants] = useState([]);
@@ -102,6 +104,8 @@ export const GlobalProvider = ({ children }) => {
         updateStudentProfile,
         savedApplications,
         setSavedApplications,
+        students,
+        setStudents,
       }}
     >
       {children}

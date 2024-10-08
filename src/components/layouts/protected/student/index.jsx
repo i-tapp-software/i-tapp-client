@@ -9,6 +9,7 @@ import { useGlobal } from "@/context/GlobalContext";
 const StudentLayout = ({ children }) => {
   const { savedApplications, setSavedApplications, loading, setLoading } =
     useGlobal();
+  const [student, setStudent] = React.useState("");
   useEffect(() => {
     const getApplications = async () => {
       try {
@@ -24,6 +25,11 @@ const StudentLayout = ({ children }) => {
     };
 
     getApplications(); // Call the async function
+  }, []);
+
+  useEffect(() => {
+    const storedStudent = JSON.parse(localStorage.getItem("company") || "{}");
+    setStudent(storedStudent);
   }, []);
 
   return (

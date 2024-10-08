@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -22,8 +21,10 @@ import { ButtonWithLoader } from "@/components/button-with-loader";
 import { signinStudent, signinCompany } from "@/api/actions/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useGlobal } from "@/context/GlobalContext";
 
 export function CompanySignIn() {
+  const { students, setStudents } = useGlobal();
   const [activeTab, setActiveTab] = useState("student"); // State to manage active tab
   const router = useRouter();
 
@@ -50,6 +51,7 @@ export function CompanySignIn() {
       if (userRole === "student") {
         router.push("/portal/find-it-space");
         localStorage.setItem("user", JSON.stringify(user));
+        setStudents(user);
       } else {
         router.push("/portal/overview/dashboard");
         localStorage.setItem("company", JSON.stringify(company));
