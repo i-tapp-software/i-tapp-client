@@ -32,7 +32,7 @@ export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
     };
 
     fetchData();
-  }, []);
+  }, [setTotalApplicants, setAcceptedApplicants, setShortlistedApplicants]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +47,7 @@ export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
     fetchData();
   }, [setCompanyJobs]);
 
-  const company = JSON.parse(localStorage.getItem("company") || "{}");
+  // const company = JSON.parse(localStorage.getItem("company") || "{}");
   return (
     <>
       <CompanyHeader />

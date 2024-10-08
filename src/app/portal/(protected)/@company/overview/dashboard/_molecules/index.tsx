@@ -5,6 +5,7 @@ import { ProfileAdd, ArrowRight } from "iconsax-react";
 import { OverviewBox } from "@/components/overview-box";
 import { ApplicantCard } from "../../../../../../../components/applicant-card";
 import { useGlobal } from "@/context/GlobalContext";
+import { useEffect, useState } from "react";
 
 export function Dashboard() {
   const { totalApplicants, acceptedApplicants, shortlistedApplicants } =
@@ -24,7 +25,12 @@ export function Dashboard() {
     createdAt: string;
   };
 
-  const company = JSON.parse(localStorage.getItem("company") || "{}");
+  const [company, setCompany] = useState({ name: "" });
+
+  useEffect(() => {
+    const storedCompany = JSON.parse(localStorage.getItem("company") || "{}");
+    setCompany(storedCompany);
+  }, []);
 
   return (
     <div className="flex flex-col gap-4">
