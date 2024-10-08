@@ -192,6 +192,7 @@ export default function CandidateProfile() {
   const { selectedApplicant } = useGlobal();
 
   const student = selectedApplicant?.student;
+  const id = student?.id;
 
   const name = student?.firstName + " " + student?.lastName;
 
@@ -254,9 +255,7 @@ export default function CandidateProfile() {
             Accept
           </Button>
           <Button
-            onClick={() =>
-              student?.id && declineAction({ studentId: student.id })
-            }
+            onClick={() => declineAction({ id: student.id })}
             disabled={isDeclining}
             size="sm"
             className="bg-red-600 hover:bg-red-700 text-white px-6 py-3"

@@ -41,6 +41,15 @@ export function AcceptedApplicants() {
     useGlobal();
   type Applicant = {
     name: string;
+    id: string;
+    accepted: boolean;
+
+    student: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      school: string;
+    };
     university: string;
     application_status: string;
   };

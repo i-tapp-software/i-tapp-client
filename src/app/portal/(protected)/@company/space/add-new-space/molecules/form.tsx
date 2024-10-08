@@ -146,7 +146,7 @@ export function AddSpaceForm() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="3">3 months</SelectItem>
+                      <SelectItem value="3">1 -3 months</SelectItem>
                       <SelectItem value="6">3 - 6 months</SelectItem>
                       <SelectItem value="12">6 - 12 months</SelectItem>
                     </SelectContent>

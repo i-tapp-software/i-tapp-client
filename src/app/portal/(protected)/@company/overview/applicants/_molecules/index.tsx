@@ -12,10 +12,16 @@ export function Applicants() {
 
   // Define the type for Applicant
   type Applicant = {
+    accepted: boolean;
     id: string;
     name: string;
     university: string;
-    student: { firstName: string; lastName: string; school: string };
+    student: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      school: string;
+    };
   };
 
   const { setCurrentPage, postPerPage, currentPage, paginate } = usePaginator(

@@ -19,7 +19,7 @@ export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchAllCompanyApplications("");
+        const response = await fetchAllCompanyApplications();
         const total = response?.data.totalApplicants;
         setTotalApplicants(total);
         const accepted = response?.data.acceptedApplicants;
@@ -37,7 +37,7 @@ export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetchCompanyJobs("");
+        const response = await fetchCompanyJobs();
         setCompanyJobs(response?.data);
       } catch (error) {
         console.error("Failed to fetch company jobs:", error);

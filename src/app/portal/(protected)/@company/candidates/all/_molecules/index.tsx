@@ -44,6 +44,15 @@ import { useGlobal } from "@/context/GlobalContext";
 // Define the type for Applicant
 type Applicant = {
   name: string;
+  id: string;
+  accepted: boolean;
+
+  student: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    school: string;
+  };
   university: string;
 };
 

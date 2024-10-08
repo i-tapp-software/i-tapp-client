@@ -20,6 +20,8 @@ import { useAction } from "next-safe-action/hooks";
 export type ApplicantProps = {
   id: string;
   accepted: boolean;
+  name: string;
+  university: string;
 
   student: {
     id: string;
@@ -111,7 +113,7 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
           ) : (
             <>
               <button
-                onClick={() => acceptAction({ studentId: student.id })}
+                onClick={() => acceptAction({ id: student.id })}
                 disabled={isAccepting}
                 className="disabled:opacity-50"
               >
@@ -122,7 +124,7 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
                 />
               </button>
               <button
-                onClick={() => declineAction({ studentId: student.id })}
+                onClick={() => declineAction({ id: student.id })}
                 disabled={isDeclining}
                 className="disabled:opacity-50"
               >

@@ -69,7 +69,7 @@ export const createSpaceSchema = z.object({
   city: z.string().min(2, "City must be at least 2 characters"),
   address: z.string().min(5, "Address must be at least 5 characters"),
   description: z.string().min(10, "Description must be at least 10 characters"),
-  duration: z.enum(["3", "6", "12"]).transform(Number),
+  duration: z.number().transform(Number),
   // showAvailability: z.boolean().default(false),
 });
 

@@ -1,11 +1,13 @@
 "use server";
 
-import { z } from "zod";
+import { Schema, z } from "zod";
 import { actionClient } from "@/services/action";
 import {
   verifyStudentIdentitySchema,
   signinSchema,
   createSpaceSchema,
+  signupSchema,
+  acceptSchema,
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
@@ -68,7 +70,7 @@ export const signin = actionClient
 
 export const studentSignup = actionClient
   .metadata({ actionName: "studentSignup" })
-  .schema(signinSchema)
+  .schema(signupSchema)
   .action(
     async ({
       parsedInput: {
@@ -205,6 +207,7 @@ export const apply = actionClient
 
 export const acceptApplication = actionClient
   .metadata({ actionName: "acceptApplication" })
+  .schema(acceptSchema)
   .action(async ({ parsedInput: id }) => {
     try {
       const response = await mutate(`/company/applicants/accept/`, id);
@@ -219,6 +222,7 @@ export const acceptApplication = actionClient
 
 export const declineApplication = actionClient
   .metadata({ actionName: "declineApplication" })
+  .schema(acceptSchema)
   .action(async ({ parsedInput: id }) => {
     try {
       const response = await mutate(`/company/applicants/accept/`, id);
@@ -232,6 +236,7 @@ export const declineApplication = actionClient
   });
 
 export const bookmarkApplication = actionClient
+  .schema(acceptSchema)
   .metadata({ actionName: "bookmarkApplication" })
   .action(async ({ parsedInput: id }) => {
     try {
