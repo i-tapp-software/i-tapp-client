@@ -187,6 +187,8 @@ import { useGlobal } from "@/context/GlobalContext";
 import { Button } from "@/components/ui/button";
 import { acceptApplication, declineApplication } from "@/api/actions/auth";
 import { useAction } from "next-safe-action/hooks";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function CandidateProfile() {
   const { selectedApplicant } = useGlobal();
@@ -343,6 +345,7 @@ export default function CandidateProfile() {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

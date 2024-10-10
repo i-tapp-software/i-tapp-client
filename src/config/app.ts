@@ -25,7 +25,7 @@ export const app = {
   ],
   links: {
     signin: "/signin",
-    signup: "/student/signup",
+    signup: "/get-started",
   },
 
   footer_links: [

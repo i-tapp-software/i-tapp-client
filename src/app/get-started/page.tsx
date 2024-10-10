@@ -1,5 +1,7 @@
 "use client";
 
+import { Logo } from "@/components/logo";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -53,6 +55,11 @@ const RoleSelection = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-4">
+      <div className="flex items-center justify-center mb-8">
+        <Link href="/">
+          <Logo />
+        </Link>
+      </div>
       <h1 className="text-3xl font-bold mb-6">Join as a student or company</h1>
       <form onSubmit={handleSubmit} className="w-full max-w-2xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

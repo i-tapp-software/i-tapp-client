@@ -35,18 +35,18 @@ export const studentSignupSchema = z
   });
 
 export const verifyCompanySchema = z.object({
-  company_name: z.string().min(1),
-  email: z.string().email(),
-  address: z.string().min(1),
-  password: z.string().min(1),
+  company_name: z.string().min(1, "Company name is required"),
+  email: z.string().email("Invalid email format"),
+  address: z.string().min(1, "Address is required"),
+  password: z.string().min(1, "Password is required"),
 });
 
 export const companySignupSchema = z.object({
-  rc_number: z.string().min(1),
-  year_founded: z.string().min(1),
-  student_capacity: z.string().min(1),
-  it_duration: z.string().min(1),
-  companyId: z.string().min(1),
+  rc_number: z.string().min(1, "RC number is required"),
+  year_founded: z.string().min(1, "Year founded is required"),
+  student_capacity: z.string().min(1, "Student capacity must be at least 1"),
+  it_duration: z.string().min(1, "IT duration must be at least 1"),
+  companyId: z.string().min(1, "Company ID is required"),
 });
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB

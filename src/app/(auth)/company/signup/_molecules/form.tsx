@@ -100,7 +100,6 @@ interface FormData {
   year_founded?: string;
   student_capacity?: string;
   it_duration?: string;
-  // Add any other fields that might be in your form data
 }
 
 export function SignupForm() {
@@ -124,7 +123,7 @@ export function SignupForm() {
       break;
     case 1:
       if (formData.email) {
-        currentForm = <CompanyInfo2 formData={{ email: formData.email }} />;
+        currentForm = <CompanyInfo2 formData={formData} />;
       } else {
         // Handle the case where email is not present
         currentForm = <div>Error: Email is required to proceed</div>;

@@ -8,38 +8,10 @@ import {
   createSpaceSchema,
   signupSchema,
   acceptSchema,
+  fullCompanySignupSchema,
 } from "@/lib/validations/auth";
 import { mutate, query } from "@/services/query";
 import { cookies } from "next/headers";
-
-// export const signin = actionClient
-//   .metadata({ actionName: "signin" })
-//   .schema(signinSchema)
-//   .action(async ({ parsedInput: { email, password } }) => {
-//     try {
-//       const response = await mutate("/auth/login", {
-//         email,
-//         password,
-//       });
-
-//       const { accessToken } = response.data.data;
-
-//       // Set the token in an HTTP-only cookie
-//       cookies().set("token", accessToken, {
-//         httpOnly: true,
-//         secure: process.env.NODE_ENV === "production",
-//         sameSite: "strict",
-//         maxAge: 60 * 60 * 24 * 7, // 1 week
-//         path: "/",
-//       });
-
-//       return { success: true };
-//     } catch (error) {
-//       console.error("Login error:", error);
-//       return error
-//       return { success: false, error: "Invalid credentials" };
-//     }
-//   });
 
 export const signinStudent = actionClient
   .metadata({ actionName: "signinStudent" })
@@ -118,6 +90,43 @@ export const studentSignup = actionClient
           password,
           matriculationNumber: matriculation,
           school,
+        });
+
+        console.log(response);
+      } catch (error) {
+        console.log(error);
+
+        throw error;
+      }
+    }
+  );
+
+export const companySignup = actionClient
+  .metadata({ actionName: "companySignup" })
+  .schema(fullCompanySignupSchema)
+  .action(
+    async ({
+      parsedInput: {
+        address,
+        company_name,
+        email,
+        it_duration,
+        password,
+        rc_number,
+        student_capacity,
+        year_founded,
+      },
+    }) => {
+      try {
+        const response = await mutate("/company/create", {
+          address,
+          company_name,
+          email,
+          it_duration,
+          password,
+          rc_number,
+          student_capacity,
+          year_founded,
         });
 
         console.log(response);
