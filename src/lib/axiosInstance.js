@@ -76,8 +76,10 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_APP_BACKEND_API_URL,
+  withCredentials: true,
   headers: {
-    Accept: "application/json",
+    // Accept: "application/json",
+    "Content-Type": "multipart/form-data",
   },
 });
 

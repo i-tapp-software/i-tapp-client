@@ -49,9 +49,8 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
       console.log("Application accepted:", data);
     },
     onError: (error) => {
-      const { serverError } = error.error;
-      const { message } = serverError;
-      toast.error(message);
+      console.log(error);
+      toast.error(" Error accepting application, please try again.");
     },
   });
 
@@ -64,11 +63,8 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
       toast.success("Application declined successfully!");
     },
     onError: (error) => {
-      const { serverError } = error.error;
-      const { message } = serverError;
-      toast.error(message);
-
-      console.error("Error declining application:", error);
+      console.log(error);
+      toast.error(" Error accepting application, please try again.");
     },
   });
 
@@ -81,10 +77,8 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
       toast.success("Application bookmarked successfully!");
     },
     onError: (error) => {
-      const { serverError } = error.error;
-      const { message } = serverError;
-      toast.error(message);
-      console.error("Error bookmarking application:", error);
+      console.log(error);
+      toast.error(" Error accepting application, please try again.");
     },
   });
 

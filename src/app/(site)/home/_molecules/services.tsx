@@ -11,12 +11,10 @@ export function Services() {
       <Wrapper className="flex flex-col gap-[102px]">
         <div className="w-full flex flex-col gap-6">
           <h2 className="text-h4 sm:text-h3 md:text-h2 text-[#242E4C] max-w-[610px]">
-            Services that empower your Journey{" "}
+            Simplified SIWES Application Journey{" "}
           </h2>
           <p className="text-grey-2 text-base sm:text-lg leading-7 max-w-[900px]">
-            A centralized hub for students to discover and apply for
-            internships, and for companies to display or indicate internship
-            opportunities and manage applications.
+            DDiscover, Connect, and Manage your SIWES applications.
           </p>
         </div>
 

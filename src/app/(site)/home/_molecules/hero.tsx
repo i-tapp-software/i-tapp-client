@@ -14,9 +14,8 @@ export function Hero() {
           Bridging the gap between companies and students.
         </h1>
         <p className="text-black text-sm sm:text-md leading-7 max-w-[511px]">
-          A centralized hub for students to discover and apply for internships,
-          and for companies to display or indicate internship opportunities and
-          manage applications.
+          A centralized hub for Nigerian students to search, find and apply for
+          industrial training placement across different industries.
         </p>
         <div>
           <Link href="/get-started" className={buttonVariants()}>

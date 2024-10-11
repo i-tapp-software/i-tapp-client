@@ -31,9 +31,8 @@ export default function CandidateProfile() {
         toast.success("Application accepted successfully!");
       },
       onError: (error) => {
-        const { serverError } = error.error;
-        const { message } = serverError;
-        toast.error(message);
+        console.log(error);
+        toast.error(" Error accepting application, please try again.");
       },
     }
   );
@@ -45,9 +44,8 @@ export default function CandidateProfile() {
         toast.success("Application declined successfully!");
       },
       onError: (error) => {
-        const { serverError } = error.error;
-        const { message } = serverError;
-        toast.error(message);
+        console.log(error);
+        toast.error(" Error accepting application, please try again.");
       },
     }
   );

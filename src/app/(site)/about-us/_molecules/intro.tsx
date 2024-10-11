@@ -4,10 +4,10 @@ export function Intro() {
   return (
     <div className=" bg-gradient-to-b from-[#9499dd1a] from-0% to-[#0010ff1a] to-100% max-w-full">
       <Wrapper className=" relative">
-        <h2 className="text-h2 sm:text-h1">About Us</h2>
+        <h2 className="text-h2 sm:text-h1">About i-Tapp</h2>
         <p className="max-w-96 mt-4 text-sm sm:text-base">
-          Lorem ipsum dolor sit amet, consectetur dipiscing elit. Vestibulum
-          vitae nunc vitae neque .
+          The inception of i-Tapp was driven by a desire to improve the
+          Industrial Training and SIWES application process in Nigeria.
         </p>
 
         <div className="gap-4 flex-col absolute right-40 -bottom-20 hidden md:flex">

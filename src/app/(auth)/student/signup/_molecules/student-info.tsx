@@ -63,7 +63,8 @@ import Link from "next/link";
 interface StudentData {
   data: {
     data: {
-      name: string;
+      firstName: string;
+      lastName: string;
       course: string;
       matriculation: string;
       phone: string;
@@ -73,10 +74,10 @@ interface StudentData {
 
 export function StudentInfo({ studentData }: { studentData: StudentData }) {
   // Extract the nested data
-  const { name, course, matriculation, phone } = studentData.data.data;
+  const { firstName, lastName, course, matriculation, phone } =
+    studentData.data.data;
 
   // Split the name into first and last name
-  const [firstName, lastName] = name.split(" ");
 
   const fields = [
     { label: "First name", value: firstName },

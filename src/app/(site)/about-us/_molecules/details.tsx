@@ -7,8 +7,12 @@ export function Details() {
     <Wrapper>
       <h3 className="text-h4 sm:text-h3">I-Tapp</h3>
       <p className=" max-w-[45em] mt-4 text-sm sm:text-base">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ut nulla eu
-        lorem rutrum tempus. Integer tincidunt tellus quis est tincidunt auctor.
+        The usual approach of students finding and applying for SIWES
+        opportunities was inefficient, time-consuming, and often resulted in
+        delays. We recognized the need for a better solution and i-Tapp was
+        created to meet this need. i-Tapp offers a more efficient and
+        streamlined process for securing placements with companies, thereby
+        bridging the gap between students and companies.
       </p>
       <div className="bg-red-100 w-full h-[25em] rounded-tr-[3em] my-16 relative ">
         <Image
@@ -25,19 +29,18 @@ export function Details() {
         </div>
       </div>
       <p className="max-w-[48em] text-sm sm:text-base">
-        Phasellus scelerisque eros felis, ut lobortis ipsum mattis ullamcorper.
-        Morbi magna orci, ornare vel auctor non, malesuada sed dolor.
-        Pellentesque facilisis condimentum nunc, nec placerat eros aliquam
-        lobortis. Nullam non bibendum neque, nec sagittis risus. Proin est
-        metus, bibendum at maximus quis, placerat id sapien. Fusce ipsum quam,
-        placerat sit amet mauris vitae, suscipit ultrices turpis. Etiam ac eros
-        est. Quisque id rhoncus dolor, eget gravida ante. Integer commodo id
-        lacus at fringilla. <br />
-        <span className="font-bold mt-8">
+        Our platform uses technology to digitize the entire process thereby
+        streamlining the entire application process and reducing the
+        administrative burden on both sides. Unlike other platforms, i-Tapp is
+        specifically tailored to the needs of Nigerian university students,
+        offering resources and guidance throughout the entire training
+        experience. At i-Tapp, we provide a user-friendly interface, transparent
+        communication, and commitment to continuous improvementz <br />
+        {/* <span className="font-bold mt-8">
           Phasellus scelerisque eros felis, ut lobortis ipsum mattis
           ullamcorper. Morbi magna orci, ornare vel auctor non, malesuada sed
           dolor. Pellentesque facilisis
-        </span>
+        </span> */}
       </p>
     </Wrapper>
   );

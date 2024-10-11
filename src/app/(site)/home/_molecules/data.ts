@@ -4,51 +4,50 @@ const service3 = require("@/assets/icons/services-3.svg");
 const service4 = require("@/assets/icons/services-4.svg");
 
 export const data: {
-  services: { icon: any, title: string, description: string }[],
-  how_it_works: { title: string, description: string }[],
-  faqs: { question: string, answer: string }[]
+  services: { icon: any; title: string; description: string }[];
+  how_it_works: { title: string; description: string }[];
+  faqs: { question: string; answer: string }[];
 } = {
   services: [
     {
       icon: service1,
-      title: "Internship Matching",
+      title: "Tailored Internship Experience",
       description:
-        "Unlock a personalized internship experience. We connects students with vacancies that align with their education.",
+        "Discover a tailored SIWES application, and unlock a personalized experience.",
     },
     {
       icon: service2,
-      title: "Effortless Application",
-      description:
-        "Companies can effortlessly manage internship applications, ensuring a seamless experience from submission to selection.",
+      title: "Track Applications",
+      description: "Effortlessly track and manage all SIWES applications.",
     },
     {
       icon: service3,
-      title: "One-Click Application",
+      title: "Maximize Your Reach",
       description:
-        "Application to numerous internships with single and streamlined profile therefore saving you time and relieving stress.",
+        "Apply to various companies at a go, one profile, multiple comapny application",
     },
     {
       icon: service4,
-      title: "Company Showcase",
+      title: "Verified Companies",
       description:
-        "I-TAPP provides companies with a dynamic showcase to display their values, culture, and internship opportunities.",
+        "Connect with companies that provide reliable, secure, and valuable student experince, essential for a successful industrial experience.",
     },
   ],
   how_it_works: [
     {
       title: "Get Started and get verified",
       description:
-        "Click on the “Get started” button. Complete the onboarding process; you will be",
+        "Click on the “Get started” button. Complete the onboarding process;",
     },
     {
       title: "Complete your profile",
       description:
-        "Your profile is the gateway to making meaningful connections. Students, create a  profile showcasing your field of study. Companies, build a  profile highlighting your brand and internship opportunities.",
+        "Your profile is the gateway to making meaningful connections. Create a  profile showcasing your field of study.",
     },
     {
       title: "Connect and thrive",
       description:
-        "It's time to bridge the gap. Students, apply to multiple internships with few clicks and taps. Companies, efficiently manage applications and connect with students seamlessly.",
+        "Apply to various comapnies of your choice, you are one-tapp away from your desired IT experience.",
     },
   ],
   faqs: [

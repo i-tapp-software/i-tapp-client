@@ -20,23 +20,13 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
 // Form schema
 const profileSchema = z.object({
-  firstName: z.string().min(1, "First name is required").optional(),
-  lastName: z.string().min(1, "Last name is required").optional(),
-  email: z.string().email("Invalid email address").optional(),
-  phoneNumber: z.string().min(1, "Phone number is required").optional(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
+  email: z.string().optional(),
+  phoneNumber: z.string().optional(),
   bio: z.string().optional().optional(),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters")
-    .optional(),
-  profileImage: z
-    .instanceof(File)
-    .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
-    .optional(),
-  documents: z
-    .instanceof(File)
-    .refine((file) => file.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
-    .optional(),
+  profileImage: z.instanceof(File).optional(),
+  documents: z.instanceof(File).optional(),
 });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
@@ -71,7 +61,11 @@ export default function ProfileForm() {
   );
 
   const onSubmit = (data: ProfileFormData) => {
-    updateProfileAction(data);
+    const prev = data;
+
+    const payload = { ...prev, ...data, profileImage, documents };
+
+    updateProfileAction(payload);
   };
 
   const handleFileChange = (

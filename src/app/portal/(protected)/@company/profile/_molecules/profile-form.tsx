@@ -17,7 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 type ProfileFormData = z.infer<typeof companyProfileSchema>;
 
 export default function ProfileForm() {
-  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
   const [bannerImage, setBannerImage] = useState<File | null>(null);
 
   const { updateCompanyProfile } = useGlobal();
@@ -46,6 +46,11 @@ export default function ProfileForm() {
   );
 
   const onSubmit = (data: ProfileFormData) => {
+    const prev = data;
+
+    const payload = { ...prev, ...data, profileImage, setBannerImage };
+
+    updateProfileAction(payload);
     updateProfileAction(data);
   };
 
@@ -94,9 +99,9 @@ export default function ProfileForm() {
         <div className="flex items-center mb-8">
           <label className="flex flex-col items-center cursor-pointer">
             <div className="w-[80px] h-[70px] border-2 border-dashed border-gray-300 rounded-lg p-2 text-center flex flex-col justify-center">
-              {profilePicture ? (
+              {profileImage ? (
                 <img
-                  src={URL.createObjectURL(profilePicture)}
+                  src={URL.createObjectURL(profileImage)}
                   alt="Profile"
                   className="w-full h-full object-cover rounded-full"
                 />
@@ -109,14 +114,14 @@ export default function ProfileForm() {
               <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => handleFileChange(e, setProfilePicture)}
+                onChange={(e) => handleFileChange(e, setProfileImage)}
                 className="hidden"
               />
             </div>
           </label>
-          {/* {errors.profilePicture && (
+          {/* {errors.profileImage && (
             <p className="text-red-500 text-sm mt-1 ml-4">
-              {errors.profilePicture.message}
+              {errors.profileImage.message}
             </p>
           )} */}
         </div>

@@ -56,6 +56,15 @@ export const GlobalProvider = ({ children }) => {
 
   const updateStudentProfile = useCallback(async (data) => {
     try {
+      // const formData = new FormData();
+      // Object.entries(data).forEach(([key, value]) => {
+      //   if (value instanceof File) {
+      //     formData.append(key, value);
+      //   } else if (value !== undefined && value !== null) {
+      //     formData.append(key, value.toString());
+      //   }
+      // });
+
       const formData = new FormData();
       Object.entries(data).forEach(([key, value]) => {
         if (value !== undefined && value !== null) {
@@ -63,21 +72,20 @@ export const GlobalProvider = ({ children }) => {
         }
       });
 
-      if (data.profilePicture) {
+      console.log(data.profileImage);
+
+      if (data.profileImage) {
         formData.append("profileImage", data.profileImage);
       }
 
-      if (data.bannerImage) {
+      if (data.documents) {
         formData.append("documents", data.documents);
       }
 
-      const response = await axiosInstance.post(`/student/profile`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axiosInstance.post(`/student/profile`, formData);
 
       console.log("Company profile updated successfully:", response);
+      return response.data;
     } catch (error) {
       console.log("Error updating company profile:", error);
     }

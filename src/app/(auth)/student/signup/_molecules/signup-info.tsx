@@ -51,8 +51,10 @@ export function SignupInfo({
     isExecuting,
   } = useAction(studentSignup, {
     onSuccess(data) {
-      // setForm(++formIndex);
-      // alert("Sign up successful!");
+      toast.success("Sign up successful!");
+      setTimeout(() => {
+        setForm(++formIndex);
+      }, 1000);
     },
     onError(error) {
       toast.error(" Error signing up");
