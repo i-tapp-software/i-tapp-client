@@ -1,8 +1,10 @@
 import React from "react";
 import Image from "next/image";
+import dp from "@/assets/images/dp.png";
+import moment from "moment";
 
 export default function AvailableCompany({ details, setCompanyId }) {
-  const { id, title, companyLogo, address, duration } = details;
+  const { id, title, companyLogo, address, duration, createdDate } = details;
   return (
     <div
       className="bg-white rounded-xl p-5 basis-[15rem] flex-grow  "
@@ -12,7 +14,7 @@ export default function AvailableCompany({ details, setCompanyId }) {
     >
       <div className="flex gap-3">
         <Image
-          src={companyLogo}
+          src={companyLogo || dp}
           alt="companylogo"
           width={50}
           height={50}
@@ -26,7 +28,9 @@ export default function AvailableCompany({ details, setCompanyId }) {
       <p className=" bg-[#F0F0F5] rounded-[40px] px-3.5 py-1 my-4 inline-block">
         {duration} Months IT
       </p>
-      <p className="text-primary">{duration} mins ago</p>
+      <p className="text-primary">
+        {moment(createdDate).startOf("day").fromNow()}
+      </p>
     </div>
   );
 }

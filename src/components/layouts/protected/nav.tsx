@@ -5,6 +5,7 @@ import { AddCircle, Element, Profile2User, BoxAdd } from "iconsax-react";
 import { usePathname } from "next/navigation";
 import { useGlobal } from "@/context/GlobalContext";
 import { cn } from "@/lib/utils/tw";
+import { useRouter } from "next/router";
 
 type Job = {
   id: string;
@@ -50,9 +51,13 @@ const sideNavLinks: {
 };
 
 export function Nav() {
-  const { companyJobs } = useGlobal();
+  const { companyJobs, setSelectedJob } = useGlobal();
   const pathname = usePathname();
   const parentRoute = pathname.split("/")[2];
+
+  const handleJobClick = (job: Job) => {
+    setSelectedJob(job); // Set the job details in context
+  };
 
   return (
     <div className="hidden lg:flex">
@@ -88,7 +93,13 @@ export function Nav() {
                       )}
                     >
                       <BoxAdd />{" "}
-                      <Link href={`/portal/space/${job.id}`}>
+                      {/* <Link href={`/portal/space/${job.id}`}>
+                        Edit {job.title}
+                      </Link> */}
+                      <Link
+                        href={`/portal/space/${job.id}`}
+                        onClick={() => handleJobClick(job)}
+                      >
                         Edit {job.title}
                       </Link>
                     </li>

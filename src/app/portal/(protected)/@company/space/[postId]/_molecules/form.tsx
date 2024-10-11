@@ -21,18 +21,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useGlobal } from "@/context/GlobalContext";
 
 export function UpdateSpaceForm() {
+  const { selectedJob } = useGlobal();
   const form = useForm({
     defaultValues: {
-      title: "",
-      industry: "",
-      state: "",
-      city: "",
-      address: "",
-      description: "",
+      title: selectedJob.title,
+      industry: selectedJob.industry,
+      state: selectedJob.state,
+      city: selectedJob.city,
+      address: selectedJob.address,
+      description: selectedJob.description,
       duration: "",
-      bio: "",
+      bio: selectedJob.bio,
     },
   });
 

@@ -22,6 +22,7 @@ export const GlobalProvider = ({ children }) => {
   const [shortlistedApplicants, setShortlistedApplicants] = useState([]);
   const [selectedApplicant, setSelectedApplicant] = useState(null);
   const [companyJobs, setCompanyJobs] = useState([]);
+  const [selectedJob, setSelectedJob] = useState([]);
   const [savedApplications, setSavedApplications] = useState([]);
 
   const updateCompanyProfile = useCallback(async (data) => {
@@ -106,6 +107,8 @@ export const GlobalProvider = ({ children }) => {
         setSavedApplications,
         students,
         setStudents,
+        selectedJob,
+        setSelectedJob,
       }}
     >
       {children}

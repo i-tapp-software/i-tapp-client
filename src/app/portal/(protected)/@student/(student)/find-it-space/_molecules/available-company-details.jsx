@@ -8,6 +8,8 @@ import { useAction } from "next-safe-action/hooks";
 import { apply, save } from "@/api/actions/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import dp from "@/assets/images/dp.png";
+import moment from "moment";
 
 export default function AvailableCompanyDetails({ details, setCompanyId }) {
   const {
@@ -66,6 +68,7 @@ export default function AvailableCompanyDetails({ details, setCompanyId }) {
     console.log(savedData);
     saveAction({ savedData });
   };
+  const date = moment(createdDate).format("ll");
 
   return (
     <div className="w-full rounded-xl md:flex p-8 bg-white flex-col md:relative md:basis-[20rem] md:rounded-l-xl h-full mx-auto">
@@ -74,7 +77,7 @@ export default function AvailableCompanyDetails({ details, setCompanyId }) {
         <div className="flex flex-col gap-4 pb-6 w-full">
           <div className="flex justify-between gap-2">
             <Image
-              src={companyLogo}
+              src={companyLogo || dp}
               alt="companylogo"
               width={75}
               height={75}
@@ -117,7 +120,7 @@ export default function AvailableCompanyDetails({ details, setCompanyId }) {
         </div>
         <div>
           <h6 className="text-h6">Date Posted</h6>
-          <p className="text-[#6E6E9B]">{createdDate}</p>
+          <p className="text-[#6E6E9B]">{date}</p>
         </div>
       </div>
 

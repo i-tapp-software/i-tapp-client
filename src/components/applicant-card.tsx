@@ -16,6 +16,8 @@ import {
   bookmarkApplication,
 } from "@/api/actions/auth";
 import { useAction } from "next-safe-action/hooks";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export type ApplicantProps = {
   id: string;
@@ -43,10 +45,13 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
     hasErrored: hasAcceptError,
   } = useAction(acceptApplication, {
     onSuccess: (data) => {
-      console.log("Application has been accepted.");
+      toast.success("Application accepted successfully!");
+      console.log("Application accepted:", data);
     },
     onError: (error) => {
-      console.error("Error accepting application:", error);
+      const { serverError } = error.error;
+      const { message } = serverError;
+      toast.error(message);
     },
   });
 
@@ -56,10 +61,14 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
     hasErrored: hasDeclineError,
   } = useAction(declineApplication, {
     onSuccess: () => {
-      alert("Application has been declined.");
+      toast.success("Application declined successfully!");
     },
-    onError: () => {
-      alert("Error declining application.");
+    onError: (error) => {
+      const { serverError } = error.error;
+      const { message } = serverError;
+      toast.error(message);
+
+      console.error("Error declining application:", error);
     },
   });
 
@@ -69,10 +78,13 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
     hasErrored: hasBookmarkError,
   } = useAction(bookmarkApplication, {
     onSuccess: () => {
-      alert("Application has been bookmarked.");
+      toast.success("Application bookmarked successfully!");
     },
-    onError: () => {
-      alert("Error bookmarking application.");
+    onError: (error) => {
+      const { serverError } = error.error;
+      const { message } = serverError;
+      toast.error(message);
+      console.error("Error bookmarking application:", error);
     },
   });
 
@@ -156,6 +168,7 @@ export function ApplicantCard({ applicant }: { applicant: ApplicantProps }) {
           </span>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 }

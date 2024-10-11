@@ -23,6 +23,7 @@ export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
         const total = response?.data.totalApplicants;
         setTotalApplicants(total);
         const accepted = response?.data.acceptedApplicants;
+
         setAcceptedApplicants(response?.data.acceptedApplicants);
         const shortlisted = response?.data.shortListedApplicants;
         setShortlistedApplicants(shortlisted);
@@ -39,6 +40,7 @@ export function CompanyLayoutUi({ children }: { children: React.ReactNode }) {
       try {
         const response = await fetchCompanyJobs();
         setCompanyJobs(response?.data);
+        console.log("Company jobs:", response?.data);
       } catch (error) {
         console.error("Failed to fetch company jobs:", error);
       }
